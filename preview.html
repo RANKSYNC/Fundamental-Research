@@ -1,61 +1,289 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📄 پیش‌نمایش خبر فاندامنتال</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📄 پیش‌نمایش خبر</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div class="container preview-container">
         <header>
             <div class="header-actions">
-                <a href="index.html" class="btn-back">
-                    <span>←</span> بازگشت به فرم
-                </a>
-                <span class="badge-live">
-                    <span>●</span> زنده
-                </span>
+                <a href="index.html" class="btn-back">← بازگشت به فرم</a>
+                <span class="badge-live">● زنده</span>
             </div>
             <h1>📄 پیش‌نمایش خبر</h1>
             <p class="subtitle">خبر تولید شده آماده انتشار در تلگرام</p>
         </header>
 
-        <!-- کارت پیش‌نمایش -->
         <div class="preview-card" id="previewCard">
-            <!-- محتوای خبر توسط JavaScript پر می‌شود -->
+            <div id="previewContent">در حال بارگذاری...</div>
         </div>
 
-        <!-- دکمه‌های اقدام -->
         <div class="preview-actions">
-            <button class="btn-copy" onclick="copyTelegram()">
-                <span>📋</span> کپی پیام تلگرام
-            </button>
-            <button class="btn-copy-json" onclick="copyJSON()">
-                <span>📄</span> کپی JSON
-            </button>
-            <button class="btn-edit" onclick="editNews()">
-                <span>✏️</span> ویرایش خبر
-            </button>
-            <button class="btn-new" onclick="newNews()">
-                <span>➕</span> خبر جدید
-            </button>
+            <button class="btn-copy" onclick="copyTelegram()">📋 کپی پیام تلگرام</button>
+            <button class="btn-copy-json" onclick="copyJSON()">📄 کپی JSON</button>
+            <button class="btn-edit" onclick="editNews()">✏️ ویرایش</button>
+            <button class="btn-new" onclick="newNews()">➕ خبر جدید</button>
         </div>
 
-        <!-- خروجی JSON -->
-        <div class="preview-json" id="previewJSON">
-            <div class="preview-json-header">
-                <h3>
-                    <span>📄</span> خروجی JSON
-                </h3>
-                <button class="btn-copy-json-mini" onclick="copyJSON()">
-                    📋 کپی JSON
-                </button>
-            </div>
+        <div class="preview-json">
+            <h3>📄 خروجی JSON</h3>
             <pre id="jsonOutput">// در حال بارگذاری...</pre>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // ============================================================
+        // ===== داده‌ها =====
+        // ============================================================
+
+        var assetNames = {
+            BTC: 'Bitcoin', ALT: 'Altcoin', MEME: 'Meme Coin',
+            USD: 'دلار آمریکا', EUR: 'یورو', GBP: 'پوند',
+            JPY: 'ین ژاپن', CNY: 'یوان چین', RUB: 'روبل روسیه',
+            GOLD: 'طلا', SILVER: 'نقره', OIL: 'نفت',
+            NATURAL_GAS: 'گاز طبیعی',
+            SP500: 'S&P 500', NASDAQ: 'NASDAQ', DOW: 'Dow Jones',
+            OTHER: 'سایر'
+        };
+
+        var assetIcons = {
+            BTC: '₿', ALT: '🪙', MEME: '🐶',
+            USD: '💵', EUR: '💶', GBP: '💷',
+            JPY: '💴', CNY: '💰', RUB: '₽',
+            GOLD: '🥇', SILVER: '🥈', OIL: '🛢️',
+            NATURAL_GAS: '🔥',
+            SP500: '📈', NASDAQ: '📊', DOW: '📉',
+            OTHER: '🔹'
+        };
+
+        var categoryMap = {
+            geopolitical: '🌍 ژئوپلیتیک',
+            central_bank: '🏛️ بانک مرکزی',
+            interest_rate: '💰 نرخ بهره',
+            inflation: '📈 تورم',
+            employment: '👔 اشتغال',
+            economic_growth: '📊 رشد اقتصادی',
+            liquidity: '💧 نقدینگی',
+            regulation: '⚖️ مقررات',
+            blockchain: '⛓️ بلاکچین',
+            onchain: '📡 داده‌های آنچین',
+            sentiment: '😊 احساسات بازار',
+            retail: '👥 داده‌های مردمی',
+            sanctions: '🚫 تحریم‌ها',
+            macroeconomics: '🌐 اقتصاد کلان',
+            other: '🔹 سایر'
+        };
+
+        // ============================================================
+        // ===== توابع =====
+        // ============================================================
+
+        function getElement(id) {
+            return document.getElementById(id);
+        }
+
+        function showToast(msg) {
+            var old = document.querySelector('.toast');
+            if (old) old.remove();
+            var t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(function() {
+                t.classList.add('hide');
+                setTimeout(function() { t.remove(); }, 300);
+            }, 3000);
+        }
+
+        function generateTelegramMessage(obj) {
+            var impactText = '';
+            if (obj.impact && Object.keys(obj.impact).length > 0) {
+                for (var key in obj.impact) {
+                    var val = obj.impact[key];
+                    var name = assetNames[key] || key;
+                    var emoji = val === 'positive' ? '🟢' : val === 'negative' ? '🔴' : '⚪';
+                    var label = val === 'positive' ? 'مثبت 📈' : val === 'negative' ? 'منفی 📉' : 'خنثی ⏸️';
+                    impactText += emoji + ' ' + name + ': ' + label + '\n';
+                }
+            } else {
+                impactText = 'تاثیری ثبت نشده';
+            }
+
+            var mainCat = categoryMap[obj.category.main] || obj.category.main || 'نامشخص';
+            var subCat = obj.category.sub ? ' › ' + obj.category.sub.replace(/_/g, ' ') : '';
+
+            var assetTags = '';
+            if (obj.assets && obj.assets.length > 0) {
+                assetTags = '\n\n' + obj.assets.map(function(a) { return '#' + a; }).join(' ');
+            }
+
+            var timeParts = [];
+            if (obj.time.shortTerm) timeParts.push('⏱️ کوتاه‌مدت: ' + obj.time.shortTerm);
+            if (obj.time.mediumTerm) timeParts.push('میان‌مدت: ' + obj.time.mediumTerm);
+            if (obj.time.longTerm) timeParts.push('بلندمدت: ' + obj.time.longTerm);
+
+            var msg = '📊 *خبر فاندامنتال جدید*\n\n';
+            msg += '📌 *عنوان:* ' + (obj.news.title || 'بدون عنوان') + '\n';
+            msg += '📂 *دسته:* ' + mainCat + subCat + '\n';
+            msg += '📅 *زمان:* ' + (obj.time.date || 'نامشخص') + ' ' + (obj.time.time || '') + '\n';
+            if (timeParts.length > 0) {
+                msg += '📊 *بازه زمانی:* ' + timeParts.join(' | ') + '\n';
+            }
+            msg += '\n📝 *متن خبر:*\n' + (obj.news.content || 'متن خبری وجود ندارد') + '\n\n';
+            msg += '📊 *تاثیر:*\n' + impactText;
+            if (obj.news.source) {
+                msg += '\n🔗 *منبع:* ' + obj.news.source;
+            }
+            msg += assetTags;
+
+            return msg;
+        }
+
+        // ============================================================
+        // ===== نمایش خبر =====
+        // ============================================================
+
+        function displayPreview(obj) {
+            var container = getElement('previewContent');
+            var jsonOutput = getElement('jsonOutput');
+
+            if (!obj) {
+                container.innerHTML = '<p style="color:#a0aec0;">هیچ خبری برای نمایش وجود ندارد</p>';
+                jsonOutput.textContent = '// هیچ داده‌ای وجود ندارد';
+                return;
+            }
+
+            // ساخت تاثیر
+            var impactHTML = '';
+            if (obj.impact && Object.keys(obj.impact).length > 0) {
+                for (var key in obj.impact) {
+                    var val = obj.impact[key];
+                    var name = assetNames[key] || key;
+                    var emoji = val === 'positive' ? '🟢' : val === 'negative' ? '🔴' : '⚪';
+                    var label = val === 'positive' ? 'مثبت 📈' : val === 'negative' ? 'منفی 📉' : 'خنثی ⏸️';
+                    var cls = val === 'positive' ? 'impact-positive' : val === 'negative' ? 'impact-negative' : 'impact-neutral';
+                    impactHTML +=
+                        '<div class="impact-item-preview">' +
+                        '<span>' + emoji + '</span>' +
+                        '<span>' + (assetIcons[key] || '📌') + ' ' + name + '</span>' +
+                        '<span class="' + cls + '">' + label + '</span>' +
+                        '</div>';
+                }
+            } else {
+                impactHTML = '<p style="color:#a0aec0;">تاثیری ثبت نشده</p>';
+            }
+
+            // دسته‌بندی
+            var mainCat = categoryMap[obj.category.main] || obj.category.main || 'نامشخص';
+            var subCat = obj.category.sub ? ' › ' + obj.category.sub.replace(/_/g, ' ') : '';
+
+            // برچسب‌ها
+            var tags = '';
+            if (obj.assets && obj.assets.length > 0) {
+                tags = obj.assets.map(function(a) {
+                    return '<span class="asset-tag">' + (assetIcons[a] || '📌') + ' ' + (assetNames[a] || a) + '</span>';
+                }).join('');
+            }
+
+            // زمان
+            var timeParts = [];
+            if (obj.time.shortTerm) timeParts.push('⏱️ کوتاه‌مدت: ' + obj.time.shortTerm);
+            if (obj.time.mediumTerm) timeParts.push('میان‌مدت: ' + obj.time.mediumTerm);
+            if (obj.time.longTerm) timeParts.push('بلندمدت: ' + obj.time.longTerm);
+
+            container.innerHTML =
+                '<div class="news-title">📌 ' + (obj.news.title || 'بدون عنوان') + '</div>' +
+                '<div class="news-meta">' +
+                '<span class="meta-tag">' + mainCat + subCat + '</span>' +
+                '<span>📅 ' + (obj.time.date || 'نامشخص') + ' ' + (obj.time.time || '') + '</span>' +
+                (timeParts.length > 0 ? '<span>📊 ' + timeParts.join(' | ') + '</span>' : '') +
+                (obj.news.source ? '<span>🔗 ' + obj.news.source + '</span>' : '') +
+                '<span>🆔 ' + obj.id + '</span>' +
+                '</div>' +
+                '<div class="news-content-text">' + (obj.news.content || 'متن خبری وجود ندارد') + '</div>' +
+                '<div class="impact-section-title">📊 تاثیر روی دارایی‌ها</div>' +
+                '<div class="impact-grid">' + impactHTML + '</div>' +
+                '<div class="asset-tags">' + tags + '</div>';
+
+            // JSON
+            jsonOutput.textContent = JSON.stringify(obj, null, 2);
+
+            // ذخیره برای کپی
+            window._lastNews = obj;
+            window._lastTelegram = generateTelegramMessage(obj);
+        }
+
+        // ============================================================
+        // ===== دکمه‌ها =====
+        // ============================================================
+
+        function copyTelegram() {
+            if (!window._lastTelegram) {
+                showToast('⚠️ خبری برای کپی وجود ندارد!');
+                return;
+            }
+            navigator.clipboard.writeText(window._lastTelegram).then(function() {
+                showToast('✅ پیام تلگرام کپی شد!');
+            }).catch(function() {
+                var ta = document.createElement('textarea');
+                ta.value = window._lastTelegram;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast('✅ پیام تلگرام کپی شد!');
+            });
+        }
+
+        function copyJSON() {
+            if (!window._lastNews) {
+                showToast('⚠️ خبری برای کپی وجود ندارد!');
+                return;
+            }
+            var json = JSON.stringify(window._lastNews, null, 2);
+            navigator.clipboard.writeText(json).then(function() {
+                showToast('✅ JSON کپی شد!');
+            }).catch(function() {
+                var ta = document.createElement('textarea');
+                ta.value = json;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast('✅ JSON کپی شد!');
+            });
+        }
+
+        function editNews() {
+            window.location.href = 'index.html';
+        }
+
+        function newNews() {
+            sessionStorage.removeItem('preview_news');
+            localStorage.removeItem('last_news');
+            window.location.href = 'index.html';
+        }
+
+        // ============================================================
+        // ===== بارگذاری =====
+        // ============================================================
+
+        var data = sessionStorage.getItem('preview_news') || localStorage.getItem('last_news');
+        if (data) {
+            try {
+                var obj = JSON.parse(data);
+                displayPreview(obj);
+            } catch (e) {
+                getElement('previewContent').innerHTML = '<p style="color:#a0aec0;">خطا در بارگذاری خبر</p>';
+            }
+        } else {
+            getElement('previewContent').innerHTML = '<p style="color:#a0aec0;">هیچ خبری برای نمایش وجود ندارد</p>';
+        }
+
+        console.log('✅ صفحه پیش‌نمایش آماده است!');
+    </script>
 </body>
 </html>
