@@ -1,44 +1,223 @@
-body {
-    background:#050505;
-    color:white;
-    font-family:Arial;
-    margin:0;
+// ============= داده‌های زیردسته‌ها =============
+const subCategories = {
+    geopolitical: ['War', 'Sanctions', 'Political Crisis'],
+    central_bank: ['FED', 'ECB', 'BOE', 'BOJ'],
+    interest_rate: ['Rate Hike', 'Rate Cut', 'Hold'],
+    inflation: ['CPI', 'PPI'],
+    employment: ['Unemployment', 'NFP', 'Jobs Data'],
+    economic_growth: ['GDP', 'PMI'],
+    liquidity: ['Money Supply', 'QE', 'QT'],
+    regulation: ['Crypto Law', 'ETF', 'Government Decision'],
+    sentiment: ['Bullish', 'Bearish', 'Fear & Greed'],
+    other: ['Other']
+};
+
+// ============= مدیریت زیردسته‌ها =============
+document.getElementById('mainCategory').addEventListener('change', function() {
+    const subSelect = document.getElementById('subCategory');
+    subSelect.innerHTML = '<option value="">انتخاب زیردسته...</option>';
+    
+    const category = this.value;
+    if (category && subCategories[category]) {
+        subCategories[category].forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.toLowerCase().replace(/ /g, '_');
+            option.textContent = item;
+            subSelect.appendChild(option);
+        });
+    }
+});
+
+// ============= مدیریت دکمه‌های تاثیر =============
+document.querySelectorAll('.impact-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const parent = this.closest('.impact-item');
+        parent.querySelectorAll('.impact-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+// ============= مدیریت انتخاب Asset =============
+document.querySelectorAll('.asset-item input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', function() {
+        this.closest('.asset-item').style.borderColor = this.checked ? '#667eea' : 'transparent';
+    });
+});
+
+// ============= تابع ساخت خروجی =============
+function generateNewsObject() {
+    // 1. Assets
+    const assets = [];
+    document.querySelectorAll('.asset-item input[type="checkbox"]:checked').forEach(cb => {
+        assets.push(cb.value);
+    });
+    
+    // 2. Category
+    const mainCategory = document.getElementById('mainCategory').value;
+    const subCategory = document.getElementById('subCategory').value;
+    
+    // 3. News
+    const title = document.getElementById('newsTitle').value;
+    const content = document.getElementById('newsContent').value;
+    const source = document.getElementById('newsSource').value;
+    
+    // 4. Impact
+    const impact = {};
+    document.querySelectorAll('.impact-item').forEach(item => {
+        const assetName = item.querySelector('.asset-name').textContent;
+        const activeBtn = item.querySelector('.impact-btn.active');
+        impact[assetName] = activeBtn ? activeBtn.dataset.value : 'neutral';
+    });
+    
+    // 5. Time
+    const date = document.getElementById('newsDate').value;
+    const time = document.getElementById('newsTime').value;
+    const shortTerm = document.getElementById('shortTerm').value;
+    const mediumTerm = document.getElementById('mediumTerm').value;
+    const longTerm = document.getElementById('longTerm').value;
+    
+    // 6. ID و timestamp
+    const id = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+    
+    return {
+        id: id,
+        timestamp: new Date().toISOString(),
+        assets: assets,
+        category: {
+            main: mainCategory,
+            sub: subCategory
+        },
+        news: {
+            title: title,
+            content: content,
+            source: source
+        },
+        impact: impact,
+        time: {
+            date: date,
+            time: time,
+            shortTerm: shortTerm,
+            mediumTerm: mediumTerm,
+            longTerm: longTerm
+        }
+    };
 }
 
-
-header {
-    text-align:center;
-    padding:40px;
-    border-bottom:1px solid #333;
+// ============= ذخیره در localStorage =============
+function saveNews(newsObj) {
+    let allNews = JSON.parse(localStorage.getItem('fundamental_news') || '[]');
+    allNews.push(newsObj);
+    localStorage.setItem('fundamental_news', JSON.stringify(allNews));
+    return allNews;
 }
 
-
-.container {
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:20px;
-    padding:30px;
+// ============= ساخت پیام تلگرام =============
+function generateTelegramMessage(newsObj) {
+    const emojis = {
+        positive: '🟢',
+        negative: '🔴',
+        neutral: '⚪'
+    };
+    
+    let impactText = '';
+    for (const [asset, value] of Object.entries(newsObj.impact)) {
+        impactText += `${emojis[value] || '⚪'} ${asset}: ${value}\n`;
+    }
+    
+    const categoryMap = {
+        geopolitical: '🌍 ژئوپلیتیک',
+        central_bank: '🏛️ بانک مرکزی',
+        interest_rate: '💰 نرخ بهره',
+        inflation: '📈 تورم',
+        employment: '👔 اشتغال',
+        economic_growth: '📊 رشد اقتصادی',
+        liquidity: '💧 نقدینگی',
+        regulation: '⚖️ مقررات',
+        sentiment: '😊 احساسات بازار',
+        other: '🔹 سایر'
+    };
+    
+    const mainCat = categoryMap[newsObj.category.main] || newsObj.category.main;
+    const subCat = newsObj.category.sub ? ` › ${newsObj.category.sub}` : '';
+    
+    let message = `📊 *خبر فاندامنتال جدید*\n\n`;
+    message += `📌 *عنوان:* ${newsObj.news.title}\n`;
+    message += `📂 *دسته:* ${mainCat}${subCat}\n`;
+    message += `📅 *زمان:* ${newsObj.time.date || 'N/A'} ${newsObj.time.time || ''}\n`;
+    message += `⏱️ *بازه:* ${newsObj.time.shortTerm || ''} ${newsObj.time.mediumTerm || ''} ${newsObj.time.longTerm || ''}\n\n`;
+    message += `📝 *خبر:*\n${newsObj.news.content}\n\n`;
+    message += `📊 *تاثیر:*\n${impactText}`;
+    
+    if (newsObj.news.source) {
+        message += `\n🔗 *منبع:* ${newsObj.news.source}`;
+    }
+    
+    return message;
 }
 
-
-.card {
-
-    background:#111;
-    border:1px solid #333;
-    border-radius:15px;
-    padding:20px;
-    width:300px;
-
+// ============= نمایش خروجی =============
+function displayOutput(newsObj) {
+    const outputSection = document.getElementById('outputSection');
+    outputSection.classList.add('show');
+    
+    // JSON
+    document.getElementById('jsonOutput').textContent = JSON.stringify(newsObj, null, 2);
+    
+    // Telegram
+    const telegramMsg = generateTelegramMessage(newsObj);
+    document.getElementById('telegramPreview').innerHTML = telegramMsg.replace(/\n/g, '<br>');
+    
+    // Save for copy
+    window._lastNews = newsObj;
+    window._lastTelegram = telegramMsg;
 }
 
-
-.positive {
-    border-left:5px solid aquamarine;
+// ============= کپی توابع =============
+function copyToClipboard() {
+    if (window._lastNews) {
+        navigator.clipboard.writeText(JSON.stringify(window._lastNews, null, 2));
+        alert('✅ JSON کپی شد!');
+    }
 }
 
-
-a {
-    color:aquamarine;
-    text-decoration:none;
+function copyTelegram() {
+    if (window._lastTelegram) {
+        navigator.clipboard.writeText(window._lastTelegram);
+        alert('✅ پیام تلگرام کپی شد!');
+    }
 }
+
+// ============= ارسال فرم =============
+document.getElementById('newsForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // اعتبارسنجی
+    const assets = document.querySelectorAll('.asset-item input[type="checkbox"]:checked');
+    if (assets.length === 0) {
+        alert('⚠️ لطفاً حداقل یک دارایی انتخاب کنید!');
+        return;
+    }
+    
+    const newsObj = generateNewsObject();
+    saveNews(newsObj);
+    displayOutput(newsObj);
+    
+    // ریست فرم (اختیاری)
+    // this.reset();
+    
+    // اسکرول به پایین
+    document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ============= لود خبرهای ذخیره شده =============
+function loadSavedNews() {
+    const allNews = JSON.parse(localStorage.getItem('fundamental_news') || '[]');
+    console.log(`📊 ${allNews.length} خبر ذخیره شده`);
+    return allNews;
+}
+
+// ============= اجرا در شروع =============
+loadSavedNews();
+
+console.log('✅ سیستم خبر فاندامنتال آماده است!');
+console.log('📊 برای دیدن اخبار ذخیره شده: loadSavedNews()');
