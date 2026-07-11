@@ -1,223 +1,716 @@
-// ============= داده‌های زیردسته‌ها =============
-const subCategories = {
-    geopolitical: ['War', 'Sanctions', 'Political Crisis'],
-    central_bank: ['FED', 'ECB', 'BOE', 'BOJ'],
-    interest_rate: ['Rate Hike', 'Rate Cut', 'Hold'],
-    inflation: ['CPI', 'PPI'],
-    employment: ['Unemployment', 'NFP', 'Jobs Data'],
-    economic_growth: ['GDP', 'PMI'],
-    liquidity: ['Money Supply', 'QE', 'QT'],
-    regulation: ['Crypto Law', 'ETF', 'Government Decision'],
-    sentiment: ['Bullish', 'Bearish', 'Fear & Greed'],
-    other: ['Other']
-};
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-// ============= مدیریت زیردسته‌ها =============
-document.getElementById('mainCategory').addEventListener('change', function() {
-    const subSelect = document.getElementById('subCategory');
-    subSelect.innerHTML = '<option value="">انتخاب زیردسته...</option>';
-    
-    const category = this.value;
-    if (category && subCategories[category]) {
-        subCategories[category].forEach(item => {
-            const option = document.createElement('option');
-            option.value = item.toLowerCase().replace(/ /g, '_');
-            option.textContent = item;
-            subSelect.appendChild(option);
-        });
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Header ===== */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #eef2f7;
+    padding-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.8em;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #8898aa;
+    font-size: 1.1em;
+    -webkit-text-fill-color: #8898aa;
+}
+
+#liveTime {
+    font-weight: 600;
+    color: #667eea;
+    -webkit-text-fill-color: #667eea;
+}
+
+/* ===== Form Sections ===== */
+.form-section {
+    background: #f8fafd;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid #eef2f7;
+    transition: border-color 0.3s;
+}
+
+.form-section:hover {
+    border-color: #667eea;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.9em;
+    flex-shrink: 0;
+}
+
+.section-header h2 {
+    font-size: 1.2em;
+    color: #2d3748;
+    margin: 0;
+}
+
+.required-badge {
+    background: #fc8181;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: 600;
+    margin-right: auto;
+}
+
+.optional-badge {
+    background: #a0aec0;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: 600;
+    margin-right: auto;
+}
+
+/* ===== Asset Grid ===== */
+.asset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.asset-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 15px;
+    background: white;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.asset-item:hover {
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.asset-item.active {
+    border-color: #667eea;
+    background: #ebf4ff;
+}
+
+.asset-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.asset-icon {
+    font-size: 1.2em;
+}
+
+.asset-name {
+    font-weight: 600;
+    font-size: 0.9em;
+    color: #2d3748;
+}
+
+.asset-symbol {
+    font-size: 0.7em;
+    color: #a0aec0;
+    font-weight: 500;
+    margin-right: auto;
+}
+
+.selected-assets {
+    margin-top: 12px;
+    padding: 10px 15px;
+    background: white;
+    border-radius: 10px;
+    min-height: 40px;
+    border: 2px dashed #e2e8f0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.selected-assets .hint {
+    color: #a0aec0;
+    font-size: 0.9em;
+}
+
+.selected-asset-tag {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.selected-asset-tag .remove-asset {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.selected-asset-tag .remove-asset:hover {
+    opacity: 1;
+}
+
+/* ===== Category ===== */
+.category-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1em;
+    background: white;
+    color: #2d3748;
+    transition: all 0.3s;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 16px center;
+}
+
+.category-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.sub-category {
+    margin-top: 12px;
+}
+
+.sub-category select {
+    background-color: #f7fafc;
+}
+
+/* ===== News Content ===== */
+.news-content .form-group {
+    margin-bottom: 16px;
+}
+
+.news-content .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 6px;
+    font-size: 0.95em;
+}
+
+.form-group label .optional {
+    font-weight: 400;
+    color: #a0aec0;
+    font-size: 0.85em;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1em;
+    font-family: inherit;
+    transition: all 0.3s;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* ===== Impact Section ===== */
+.impact-hint {
+    color: #718096;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.impact-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    background: white;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s;
+}
+
+.impact-item:hover {
+    border-color: #cbd5e0;
+}
+
+.impact-item .asset-label {
+    font-weight: 600;
+    color: #2d3748;
+    min-width: 80px;
+}
+
+.impact-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.impact-btn {
+    padding: 6px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 20px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    font-size: 0.9em;
+    color: #4a5568;
+}
+
+.impact-btn:hover {
+    transform: scale(1.05);
+}
+
+.impact-btn.positive {
+    color: #48bb78;
+    border-color: #48bb78;
+}
+
+.impact-btn.positive.active {
+    background: #48bb78;
+    color: white;
+}
+
+.impact-btn.negative {
+    color: #fc8181;
+    border-color: #fc8181;
+}
+
+.impact-btn.negative.active {
+    background: #fc8181;
+    color: white;
+}
+
+.impact-btn.neutral {
+    color: #a0aec0;
+    border-color: #a0aec0;
+}
+
+.impact-btn.neutral.active {
+    background: #a0aec0;
+    color: white;
+}
+
+/* ===== Time Group ===== */
+.time-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.time-row:last-child {
+    margin-bottom: 0;
+}
+
+.time-row.three-col {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.time-group .form-group {
+    margin-bottom: 0;
+}
+
+.time-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1em;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.time-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* ===== Submit Button ===== */
+.btn-submit {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.3em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-submit:hover::before {
+    left: 100%;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    font-size: 1.5em;
+}
+
+.btn-subtitle {
+    font-size: 0.6em;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+/* ===== Preview Page ===== */
+.preview-container {
+    max-width: 800px;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.btn-back {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-back:hover {
+    color: #764ba2;
+}
+
+.badge-live {
+    background: #fc8181;
+    color: white;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.preview-card {
+    background: #f8fafd;
+    border-radius: 16px;
+    padding: 30px;
+    margin: 20px 0;
+    border: 1px solid #eef2f7;
+    min-height: 200px;
+}
+
+.preview-card .news-title {
+    font-size: 1.8em;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.preview-card .news-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: #718096;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.preview-card .news-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.preview-card .news-content-text {
+    font-size: 1.05em;
+    line-height: 1.8;
+    color: #4a5568;
+    margin-bottom: 20px;
+}
+
+.preview-card .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+}
+
+.preview-card .impact-grid .impact-item-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #f7fafc;
+}
+
+.impact-positive {
+    color: #48bb78;
+    font-weight: 700;
+}
+
+.impact-negative {
+    color: #fc8181;
+    font-weight: 700;
+}
+
+.impact-neutral {
+    color: #a0aec0;
+    font-weight: 700;
+}
+
+.preview-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.preview-actions button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1em;
+    flex: 1;
+    min-width: 150px;
+}
+
+.preview-actions button:hover {
+    transform: translateY(-2px);
+}
+
+.btn-copy {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+}
+
+.btn-copy:hover {
+    box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+}
+
+.btn-copy-json {
+    background: linear-gradient(135deg, #4299e1, #3182ce);
+    color: white;
+}
+
+.btn-copy-json:hover {
+    box-shadow: 0 8px 25px rgba(66, 153, 225, 0.4);
+}
+
+.btn-edit {
+    background: linear-gradient(135deg, #ed8936, #dd6b20);
+    color: white;
+}
+
+.btn-edit:hover {
+    box-shadow: 0 8px 25px rgba(237, 137, 54, 0.4);
+}
+
+.btn-new {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.btn-new:hover {
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.preview-json {
+    margin-top: 30px;
+    background: #1a202c;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.preview-json h3 {
+    color: #a0aec0;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.preview-json pre {
+    color: #68d391;
+    background: #2d3748;
+    padding: 20px;
+    border-radius: 12px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    font-size: 0.85em;
+    line-height: 1.6;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
     }
-});
-
-// ============= مدیریت دکمه‌های تاثیر =============
-document.querySelectorAll('.impact-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const parent = this.closest('.impact-item');
-        parent.querySelectorAll('.impact-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-    });
-});
-
-// ============= مدیریت انتخاب Asset =============
-document.querySelectorAll('.asset-item input[type="checkbox"]').forEach(cb => {
-    cb.addEventListener('change', function() {
-        this.closest('.asset-item').style.borderColor = this.checked ? '#667eea' : 'transparent';
-    });
-});
-
-// ============= تابع ساخت خروجی =============
-function generateNewsObject() {
-    // 1. Assets
-    const assets = [];
-    document.querySelectorAll('.asset-item input[type="checkbox"]:checked').forEach(cb => {
-        assets.push(cb.value);
-    });
     
-    // 2. Category
-    const mainCategory = document.getElementById('mainCategory').value;
-    const subCategory = document.getElementById('subCategory').value;
-    
-    // 3. News
-    const title = document.getElementById('newsTitle').value;
-    const content = document.getElementById('newsContent').value;
-    const source = document.getElementById('newsSource').value;
-    
-    // 4. Impact
-    const impact = {};
-    document.querySelectorAll('.impact-item').forEach(item => {
-        const assetName = item.querySelector('.asset-name').textContent;
-        const activeBtn = item.querySelector('.impact-btn.active');
-        impact[assetName] = activeBtn ? activeBtn.dataset.value : 'neutral';
-    });
-    
-    // 5. Time
-    const date = document.getElementById('newsDate').value;
-    const time = document.getElementById('newsTime').value;
-    const shortTerm = document.getElementById('shortTerm').value;
-    const mediumTerm = document.getElementById('mediumTerm').value;
-    const longTerm = document.getElementById('longTerm').value;
-    
-    // 6. ID و timestamp
-    const id = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
-    
-    return {
-        id: id,
-        timestamp: new Date().toISOString(),
-        assets: assets,
-        category: {
-            main: mainCategory,
-            sub: subCategory
-        },
-        news: {
-            title: title,
-            content: content,
-            source: source
-        },
-        impact: impact,
-        time: {
-            date: date,
-            time: time,
-            shortTerm: shortTerm,
-            mediumTerm: mediumTerm,
-            longTerm: longTerm
-        }
-    };
-}
-
-// ============= ذخیره در localStorage =============
-function saveNews(newsObj) {
-    let allNews = JSON.parse(localStorage.getItem('fundamental_news') || '[]');
-    allNews.push(newsObj);
-    localStorage.setItem('fundamental_news', JSON.stringify(allNews));
-    return allNews;
-}
-
-// ============= ساخت پیام تلگرام =============
-function generateTelegramMessage(newsObj) {
-    const emojis = {
-        positive: '🟢',
-        negative: '🔴',
-        neutral: '⚪'
-    };
-    
-    let impactText = '';
-    for (const [asset, value] of Object.entries(newsObj.impact)) {
-        impactText += `${emojis[value] || '⚪'} ${asset}: ${value}\n`;
+    header h1 {
+        font-size: 2em;
     }
     
-    const categoryMap = {
-        geopolitical: '🌍 ژئوپلیتیک',
-        central_bank: '🏛️ بانک مرکزی',
-        interest_rate: '💰 نرخ بهره',
-        inflation: '📈 تورم',
-        employment: '👔 اشتغال',
-        economic_growth: '📊 رشد اقتصادی',
-        liquidity: '💧 نقدینگی',
-        regulation: '⚖️ مقررات',
-        sentiment: '😊 احساسات بازار',
-        other: '🔹 سایر'
-    };
-    
-    const mainCat = categoryMap[newsObj.category.main] || newsObj.category.main;
-    const subCat = newsObj.category.sub ? ` › ${newsObj.category.sub}` : '';
-    
-    let message = `📊 *خبر فاندامنتال جدید*\n\n`;
-    message += `📌 *عنوان:* ${newsObj.news.title}\n`;
-    message += `📂 *دسته:* ${mainCat}${subCat}\n`;
-    message += `📅 *زمان:* ${newsObj.time.date || 'N/A'} ${newsObj.time.time || ''}\n`;
-    message += `⏱️ *بازه:* ${newsObj.time.shortTerm || ''} ${newsObj.time.mediumTerm || ''} ${newsObj.time.longTerm || ''}\n\n`;
-    message += `📝 *خبر:*\n${newsObj.news.content}\n\n`;
-    message += `📊 *تاثیر:*\n${impactText}`;
-    
-    if (newsObj.news.source) {
-        message += `\n🔗 *منبع:* ${newsObj.news.source}`;
+    .asset-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
     
-    return message;
-}
-
-// ============= نمایش خروجی =============
-function displayOutput(newsObj) {
-    const outputSection = document.getElementById('outputSection');
-    outputSection.classList.add('show');
+    .time-row {
+        grid-template-columns: 1fr;
+    }
     
-    // JSON
-    document.getElementById('jsonOutput').textContent = JSON.stringify(newsObj, null, 2);
+    .time-row.three-col {
+        grid-template-columns: 1fr;
+    }
     
-    // Telegram
-    const telegramMsg = generateTelegramMessage(newsObj);
-    document.getElementById('telegramPreview').innerHTML = telegramMsg.replace(/\n/g, '<br>');
+    .preview-actions button {
+        flex: 1 1 100%;
+    }
     
-    // Save for copy
-    window._lastNews = newsObj;
-    window._lastTelegram = telegramMsg;
-}
-
-// ============= کپی توابع =============
-function copyToClipboard() {
-    if (window._lastNews) {
-        navigator.clipboard.writeText(JSON.stringify(window._lastNews, null, 2));
-        alert('✅ JSON کپی شد!');
+    .impact-item {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    
+    .impact-buttons {
+        justify-content: center;
     }
 }
 
-function copyTelegram() {
-    if (window._lastTelegram) {
-        navigator.clipboard.writeText(window._lastTelegram);
-        alert('✅ پیام تلگرام کپی شد!');
-    }
-}
-
-// ============= ارسال فرم =============
-document.getElementById('newsForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // اعتبارسنجی
-    const assets = document.querySelectorAll('.asset-item input[type="checkbox"]:checked');
-    if (assets.length === 0) {
-        alert('⚠️ لطفاً حداقل یک دارایی انتخاب کنید!');
-        return;
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+        border-radius: 16px;
     }
     
-    const newsObj = generateNewsObject();
-    saveNews(newsObj);
-    displayOutput(newsObj);
+    .form-section {
+        padding: 16px;
+    }
     
-    // ریست فرم (اختیاری)
-    // this.reset();
+    .asset-grid {
+        grid-template-columns: 1fr 1fr;
+    }
     
-    // اسکرول به پایین
-    document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
-});
-
-// ============= لود خبرهای ذخیره شده =============
-function loadSavedNews() {
-    const allNews = JSON.parse(localStorage.getItem('fundamental_news') || '[]');
-    console.log(`📊 ${allNews.length} خبر ذخیره شده`);
-    return allNews;
+    .asset-item {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
 }
-
-// ============= اجرا در شروع =============
-loadSavedNews();
-
-console.log('✅ سیستم خبر فاندامنتال آماده است!');
-console.log('📊 برای دیدن اخبار ذخیره شده: loadSavedNews()');
