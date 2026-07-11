@@ -37,27 +37,27 @@
 
 <script>
 // ============================================================
-// ===== داده‌های کامل به فارسی =====
+// ===== داده‌های کامل =====
 // ============================================================
 
 var assetNames = {
-    BTC: 'بیت‌کوین',
-    ALT: 'آلت‌کوین',
-    MEME: 'میم کوین',
-    USD: 'دلار آمریکا',
-    EUR: 'یورو',
-    GBP: 'پوند',
-    JPY: 'ین ژاپن',
-    CNY: 'یوان چین',
-    RUB: 'روبل روسیه',
-    GOLD: 'طلا',
-    SILVER: 'نقره',
-    OIL: 'نفت',
-    NATURAL_GAS: 'گاز طبیعی',
-    SP500: 'اس اند پی ۵۰۰',
-    NASDAQ: 'نزدک',
-    DOW: 'داوجونز',
-    OTHER: 'سایر'
+    BTC: 'Bitcoin',
+    ALT: 'Altcoin',
+    MEME: 'Meme Coin',
+    USD: 'USD',
+    EUR: 'EUR',
+    GBP: 'GBP',
+    JPY: 'JPY',
+    CNY: 'CNY',
+    RUB: 'RUB',
+    GOLD: 'Gold',
+    SILVER: 'Silver',
+    OIL: 'Oil',
+    NATURAL_GAS: 'Natural Gas',
+    SP500: 'S&P 500',
+    NASDAQ: 'NASDAQ',
+    DOW: 'Dow Jones',
+    OTHER: 'Other'
 };
 
 var assetIcons = {
@@ -81,21 +81,21 @@ var assetIcons = {
 };
 
 var categoryMap = {
-    geopolitical: '🌍 ژئوپلیتیک',
-    central_bank: '🏛️ بانک مرکزی',
-    interest_rate: '💰 نرخ بهره',
-    inflation: '📈 تورم',
-    employment: '👔 اشتغال',
-    economic_growth: '📊 رشد اقتصادی',
-    liquidity: '💧 نقدینگی',
-    regulation: '⚖️ مقررات',
-    blockchain: '⛓️ بلاکچین',
-    onchain: '📡 داده‌های آنچین',
-    sentiment: '😊 احساسات بازار',
-    retail: '👥 داده‌های مردمی',
-    sanctions: '🚫 تحریم‌ها',
-    macroeconomics: '🌐 اقتصاد کلان',
-    other: '🔹 سایر'
+    geopolitical: '🌍 Geopolitical',
+    central_bank: '🏛️ Central Bank',
+    interest_rate: '💰 Interest Rate',
+    inflation: '📈 Inflation',
+    employment: '👔 Employment',
+    economic_growth: '📊 Economic Growth',
+    liquidity: '💧 Liquidity',
+    regulation: '⚖️ Regulation',
+    blockchain: '⛓️ Blockchain',
+    onchain: '📡 On-Chain',
+    sentiment: '😊 Sentiment',
+    retail: '👥 Retail',
+    sanctions: '🚫 Sanctions',
+    macroeconomics: '🌐 Macroeconomics',
+    other: '🔹 Other'
 };
 
 // ============================================================
@@ -118,51 +118,65 @@ function showToast(msg) {
 }
 
 // ============================================================
-// ===== ساخت پیام تلگرام (نسخه قشنگ و حرفه‌ای) =====
+// ===== ساخت پیام تلگرام (نسخه مینیمال و شیک) =====
 // ============================================================
 
 function generateTelegramMessage(obj) {
     // تاثیر
     var impactText = '';
     if (obj.impact && Object.keys(obj.impact).length > 0) {
+        var count = 0;
         for (var key in obj.impact) {
             var val = obj.impact[key];
             var name = assetNames[key] || key;
             var emoji = val === 'positive' ? '🟢' : val === 'negative' ? '🔴' : '⚪';
-            var label = val === 'positive' ? 'صعودی' : val === 'negative' ? 'نزولی' : 'خنثی';
-            impactText += emoji + ' ' + name + ' → ' + label + '\n';
+            var label = val === 'positive' ? 'Bullish' : val === 'negative' ? 'Bearish' : 'Neutral';
+            impactText += emoji + ' ' + name + ' → ' + label;
+            count++;
+            if (count < Object.keys(obj.impact).length) {
+                impactText += '\n';
+            }
         }
     } else {
-        impactText = '⚪ تاثیری ثبت نشده';
+        impactText = '⚪ No Impact';
     }
 
-    // ایموجی برای دسته‌بندی
-    var categoryEmoji = {
-        'geopolitical': '🌍',
-        'central_bank': '🏛️',
-        'interest_rate': '💰',
-        'inflation': '📈',
-        'employment': '👔',
-        'economic_growth': '📊',
-        'liquidity': '💧',
-        'regulation': '⚖️',
-        'blockchain': '⛓️',
-        'onchain': '📡',
-        'sentiment': '😊',
-        'retail': '👥',
-        'sanctions': '🚫',
-        'macroeconomics': '🌐'
+    // ایموجی کشور برای عنوان
+    var countryEmojis = {
+        'روسیه': '🇷🇺',
+        'آمریکا': '🇺🇸',
+        'چین': '🇨🇳',
+        'ژاپن': '🇯🇵',
+        'انگلیس': '🇬🇧',
+        'اروپا': '🇪🇺',
+        'کانادا': '🇨🇦',
+        'استرالیا': '🇦🇺',
+        'ایران': '🇮🇷',
+        'ترکیه': '🇹🇷',
+        'آلمان': '🇩🇪',
+        'فرانسه': '🇫🇷',
+        'ایتالیا': '🇮🇹',
+        'اسپانیا': '🇪🇸',
+        'برزیل': '🇧🇷',
+        'هند': '🇮🇳',
+        'کره': '🇰🇷',
+        'امارات': '🇦🇪',
+        'عربستان': '🇸🇦'
     };
-    var catEmoji = categoryEmoji[obj.category.main] || '📌';
-
-    // دسته‌بندی
-    var mainCat = categoryMap[obj.category.main] || obj.category.main || '';
-    var subCat = obj.category.sub ? ' › ' + obj.category.sub : '';
+    
+    var title = obj.news.title || 'بدون عنوان';
+    var titleEmoji = '';
+    for (var country in countryEmojis) {
+        if (title.includes(country)) {
+            titleEmoji = countryEmojis[country] + ' ';
+            break;
+        }
+    }
 
     // هشتگ‌ها
     var tags = '';
     if (obj.assets && obj.assets.length > 0) {
-        tags = obj.assets.map(function(a) { return '#' + (assetNames[a] || a); }).join('  ');
+        tags = obj.assets.map(function(a) { return '#' + a; }).join(' ');
     }
 
     // زمان
@@ -170,30 +184,29 @@ function generateTelegramMessage(obj) {
 
     // ===== ساخت پیام =====
     var msg = '';
-    msg += '🟢  فاندامنتال\n';
-    msg += '━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+    msg += '🟢 FUNDAMENTAL NEWS\n';
     msg += '\n';
-    msg += catEmoji + '  ' + (obj.news.title || 'بدون عنوان') + '\n';
+    msg += titleEmoji + title + '\n';
     msg += '\n';
     msg += (obj.news.content || 'متن خبری وجود ندارد') + '\n';
     msg += '\n';
-    msg += '━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
-    msg += '📈  تاثیر\n';
-    msg += impactText;
+    msg += '━━━━━━━━━━━━\n';
+    msg += '📈 Impact\n';
+    msg += impactText + '\n';
     msg += '\n';
-    msg += '🕒  ' + timeStr + '\n';
+    msg += '🕒 ' + timeStr + '\n';
     if (obj.news.source) {
-        msg += '🔗  ' + obj.news.source + '\n';
+        msg += '🔗 ' + obj.news.source + '\n';
     }
     if (tags) {
-        msg += '\n' + tags;
+        msg += tags;
     }
 
     return msg;
 }
 
 // ============================================================
-// ===== کپی پیام تلگرام (بدون ستاره) =====
+// ===== کپی پیام تلگرام =====
 // ============================================================
 
 function copyTelegram() {
@@ -202,7 +215,6 @@ function copyTelegram() {
         return;
     }
     
-    // حذف ستاره‌ها از متن (اگه باشه)
     var cleanText = window._lastTelegram.replace(/\*/g, '');
     
     navigator.clipboard.writeText(cleanText).then(function() {
@@ -269,7 +281,7 @@ function displayPreview(obj) {
             var val = obj.impact[key];
             var name = assetNames[key] || key;
             var emoji = val === 'positive' ? '🟢' : val === 'negative' ? '🔴' : '⚪';
-            var label = val === 'positive' ? 'صعودی 📈' : val === 'negative' ? 'نزولی 📉' : 'خنثی ⏸️';
+            var label = val === 'positive' ? 'Bullish 📈' : val === 'negative' ? 'Bearish 📉' : 'Neutral ⏸️';
             var cls = val === 'positive' ? 'impact-positive' : val === 'negative' ? 'impact-negative' : 'impact-neutral';
             impactHTML +=
                 '<div class="impact-item-preview">' +
@@ -279,10 +291,10 @@ function displayPreview(obj) {
                 '</div>';
         }
     } else {
-        impactHTML = '<p style="color:#a0aec0; grid-column:1/-1; text-align:center;">تاثیری ثبت نشده</p>';
+        impactHTML = '<p style="color:#a0aec0; grid-column:1/-1; text-align:center;">No Impact</p>';
     }
 
-    var mainCat = categoryMap[obj.category.main] || obj.category.main || 'نامشخص';
+    var mainCat = categoryMap[obj.category.main] || obj.category.main || 'Unknown';
     var subCat = obj.category.sub ? ' › ' + obj.category.sub : '';
 
     var tags = '';
@@ -293,9 +305,9 @@ function displayPreview(obj) {
     }
 
     var timeParts = [];
-    if (obj.time.shortTerm) timeParts.push('⏱️ کوتاه‌مدت: ' + obj.time.shortTerm);
-    if (obj.time.mediumTerm) timeParts.push('میان‌مدت: ' + obj.time.mediumTerm);
-    if (obj.time.longTerm) timeParts.push('بلندمدت: ' + obj.time.longTerm);
+    if (obj.time.shortTerm) timeParts.push('⏱️ Short: ' + obj.time.shortTerm);
+    if (obj.time.mediumTerm) timeParts.push('Mid: ' + obj.time.mediumTerm);
+    if (obj.time.longTerm) timeParts.push('Long: ' + obj.time.longTerm);
 
     container.innerHTML =
         '<div class="news-title">📌 ' + (obj.news.title || 'بدون عنوان') + '</div>' +
@@ -307,7 +319,7 @@ function displayPreview(obj) {
         '<span>🆔 ' + obj.id + '</span>' +
         '</div>' +
         '<div class="news-content-text">' + (obj.news.content || 'متن خبری وجود ندارد') + '</div>' +
-        '<div class="impact-section-title">📊 تاثیر روی دارایی‌ها</div>' +
+        '<div class="impact-section-title">📊 Impact</div>' +
         '<div class="impact-grid">' + impactHTML + '</div>' +
         '<div class="asset-tags">' + tags + '</div>';
 
