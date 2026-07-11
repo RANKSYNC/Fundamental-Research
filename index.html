@@ -13,12 +13,12 @@
     <!-- ====== HEADER ====== -->
     <header>
         <h1>📊 ثبت خبر فاندامنتال</h1>
-        <p class="subtitle">سیستم حرفه‌ای ثبت و مدیریت اخبار اقتصادی و بلاکچین</p>
+        <p class="subtitle">سیستم حرفه‌ای ثبت و مدیریت اخبار اقتصادی</p>
         <div class="live-time" id="liveTime">⏰ در حال بارگذاری...</div>
     </header>
 
     <!-- ====== FORM ====== -->
-    <form id="newsForm" novalidate>
+    <form id="newsForm">
 
         <!-- ============================================================ -->
         <!-- بخش ۱: دارایی مربوطه -->
@@ -31,7 +31,7 @@
             </div>
 
             <div class="asset-grid" id="assetGrid">
-                <!-- گروه ارزهای دیجیتال -->
+                <!-- ارزهای دیجیتال -->
                 <div class="asset-group-label">🪙 ارزهای دیجیتال</div>
 
                 <label class="asset-item" data-asset="BTC">
@@ -40,60 +40,14 @@
                     <span class="asset-name">Bitcoin</span>
                     <span class="asset-symbol">BTC</span>
                 </label>
-                <label class="asset-item" data-asset="ETH">
-                    <input type="checkbox" value="ETH" name="asset" />
-                    <span class="asset-icon">⟠</span>
-                    <span class="asset-name">Ethereum</span>
-                    <span class="asset-symbol">ETH</span>
-                </label>
-                <label class="asset-item" data-asset="BNB">
-                    <input type="checkbox" value="BNB" name="asset" />
-                    <span class="asset-icon">🟡</span>
-                    <span class="asset-name">BNB</span>
-                    <span class="asset-symbol">BNB</span>
-                </label>
-                <label class="asset-item" data-asset="SOL">
-                    <input type="checkbox" value="SOL" name="asset" />
-                    <span class="asset-icon">☀️</span>
-                    <span class="asset-name">Solana</span>
-                    <span class="asset-symbol">SOL</span>
-                </label>
-                <label class="asset-item" data-asset="XRP">
-                    <input type="checkbox" value="XRP" name="asset" />
-                    <span class="asset-icon">💠</span>
-                    <span class="asset-name">Ripple</span>
-                    <span class="asset-symbol">XRP</span>
-                </label>
-                <label class="asset-item" data-asset="ADA">
-                    <input type="checkbox" value="ADA" name="asset" />
-                    <span class="asset-icon">🔷</span>
-                    <span class="asset-name">Cardano</span>
-                    <span class="asset-symbol">ADA</span>
-                </label>
-                <label class="asset-item" data-asset="DOT">
-                    <input type="checkbox" value="DOT" name="asset" />
-                    <span class="asset-icon">🔴</span>
-                    <span class="asset-name">Polkadot</span>
-                    <span class="asset-symbol">DOT</span>
-                </label>
-                <label class="asset-item" data-asset="LINK">
-                    <input type="checkbox" value="LINK" name="asset" />
-                    <span class="asset-icon">🔗</span>
-                    <span class="asset-name">Chainlink</span>
-                    <span class="asset-symbol">LINK</span>
-                </label>
-                <label class="asset-item" data-asset="MATIC">
-                    <input type="checkbox" value="MATIC" name="asset" />
-                    <span class="asset-icon">🟣</span>
-                    <span class="asset-name">Polygon</span>
-                    <span class="asset-symbol">MATIC</span>
-                </label>
+
                 <label class="asset-item" data-asset="ALT">
                     <input type="checkbox" value="ALT" name="asset" />
                     <span class="asset-icon">🪙</span>
                     <span class="asset-name">Altcoin</span>
                     <span class="asset-symbol">ALT</span>
                 </label>
+
                 <label class="asset-item" data-asset="MEME">
                     <input type="checkbox" value="MEME" name="asset" />
                     <span class="asset-icon">🐶</span>
@@ -101,7 +55,7 @@
                     <span class="asset-symbol">MEME</span>
                 </label>
 
-                <!-- گروه ارزهای فیات -->
+                <!-- ارزهای فیات -->
                 <div class="asset-group-label">💱 ارزهای فیات</div>
 
                 <label class="asset-item" data-asset="USD">
@@ -110,30 +64,35 @@
                     <span class="asset-name">دلار آمریکا</span>
                     <span class="asset-symbol">USD</span>
                 </label>
+
                 <label class="asset-item" data-asset="EUR">
                     <input type="checkbox" value="EUR" name="asset" />
                     <span class="asset-icon">💶</span>
                     <span class="asset-name">یورو</span>
                     <span class="asset-symbol">EUR</span>
                 </label>
+
                 <label class="asset-item" data-asset="GBP">
                     <input type="checkbox" value="GBP" name="asset" />
                     <span class="asset-icon">💷</span>
                     <span class="asset-name">پوند</span>
                     <span class="asset-symbol">GBP</span>
                 </label>
+
                 <label class="asset-item" data-asset="JPY">
                     <input type="checkbox" value="JPY" name="asset" />
                     <span class="asset-icon">💴</span>
                     <span class="asset-name">ین ژاپن</span>
                     <span class="asset-symbol">JPY</span>
                 </label>
+
                 <label class="asset-item" data-asset="CNY">
                     <input type="checkbox" value="CNY" name="asset" />
                     <span class="asset-icon">💰</span>
                     <span class="asset-name">یوان چین</span>
                     <span class="asset-symbol">CNY</span>
                 </label>
+
                 <label class="asset-item" data-asset="RUB">
                     <input type="checkbox" value="RUB" name="asset" />
                     <span class="asset-icon">₽</span>
@@ -141,7 +100,7 @@
                     <span class="asset-symbol">RUB</span>
                 </label>
 
-                <!-- گروه کالاها -->
+                <!-- کالاها -->
                 <div class="asset-group-label">📦 کالاها</div>
 
                 <label class="asset-item" data-asset="GOLD">
@@ -150,18 +109,21 @@
                     <span class="asset-name">طلا</span>
                     <span class="asset-symbol">XAU</span>
                 </label>
+
                 <label class="asset-item" data-asset="SILVER">
                     <input type="checkbox" value="SILVER" name="asset" />
                     <span class="asset-icon">🥈</span>
                     <span class="asset-name">نقره</span>
                     <span class="asset-symbol">XAG</span>
                 </label>
+
                 <label class="asset-item" data-asset="OIL">
                     <input type="checkbox" value="OIL" name="asset" />
                     <span class="asset-icon">🛢️</span>
                     <span class="asset-name">نفت</span>
                     <span class="asset-symbol">WTI</span>
                 </label>
+
                 <label class="asset-item" data-asset="NATURAL_GAS">
                     <input type="checkbox" value="NATURAL_GAS" name="asset" />
                     <span class="asset-icon">🔥</span>
@@ -169,7 +131,7 @@
                     <span class="asset-symbol">NG</span>
                 </label>
 
-                <!-- گروه شاخص‌ها -->
+                <!-- شاخص‌ها -->
                 <div class="asset-group-label">📊 شاخص‌ها</div>
 
                 <label class="asset-item" data-asset="SP500">
@@ -178,12 +140,14 @@
                     <span class="asset-name">S&amp;P 500</span>
                     <span class="asset-symbol">SPX</span>
                 </label>
+
                 <label class="asset-item" data-asset="NASDAQ">
                     <input type="checkbox" value="NASDAQ" name="asset" />
                     <span class="asset-icon">📊</span>
                     <span class="asset-name">NASDAQ</span>
                     <span class="asset-symbol">IXIC</span>
                 </label>
+
                 <label class="asset-item" data-asset="DOW">
                     <input type="checkbox" value="DOW" name="asset" />
                     <span class="asset-icon">📉</span>
@@ -256,7 +220,7 @@
             <div class="news-content">
                 <div class="form-group">
                     <label for="newsTitle">عنوان خبر</label>
-                    <input type="text" id="newsTitle" placeholder="مثال: فدرال رزرو نرخ بهره را ۰٫۲۵٪ افزایش داد" required />
+                    <input type="text" id="newsTitle" placeholder="مثال: فدرال رزرو نرخ بهره را افزایش داد" required />
                 </div>
                 <div class="form-group">
                     <label for="newsContent">متن خبر</label>
@@ -264,7 +228,7 @@
                 </div>
                 <div class="form-group">
                     <label for="newsSource">منبع خبر <span class="optional">(اختیاری)</span></label>
-                    <input type="text" id="newsSource" placeholder="مثال: Reuters, Bloomberg, CoinDesk" />
+                    <input type="text" id="newsSource" placeholder="مثال: Reuters, Bloomberg" />
                 </div>
             </div>
         </div>
@@ -281,7 +245,7 @@
 
             <p class="impact-hint">💡 برای هر دارایی، یکی از گزینه‌های زیر را انتخاب کنید</p>
             <div id="impactContainer">
-                <!-- توسط جاوااسکریپت پر می‌شود -->
+                <p class="impact-hint" style="color:#a0aec0;">📌 ابتدا دارایی‌ها را انتخاب کنید</p>
             </div>
         </div>
 
@@ -311,24 +275,24 @@
                         <label for="shortTerm">کوتاه‌مدت</label>
                         <select id="shortTerm">
                             <option value="">انتخاب...</option>
-                            <option value="hours">ساعت‌ها (Hours)</option>
-                            <option value="days">روزها (Days)</option>
+                            <option value="hours">ساعت‌ها</option>
+                            <option value="days">روزها</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="mediumTerm">میان‌مدت</label>
                         <select id="mediumTerm">
                             <option value="">انتخاب...</option>
-                            <option value="weeks">هفته‌ها (Weeks)</option>
-                            <option value="months">ماه‌ها (Months)</option>
+                            <option value="weeks">هفته‌ها</option>
+                            <option value="months">ماه‌ها</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="longTerm">بلندمدت</label>
                         <select id="longTerm">
                             <option value="">انتخاب...</option>
-                            <option value="months">ماه‌ها (Months)</option>
-                            <option value="years">سال‌ها (Years)</option>
+                            <option value="months">ماه‌ها</option>
+                            <option value="years">سال‌ها</option>
                         </select>
                     </div>
                 </div>
