@@ -118,58 +118,76 @@ function showToast(msg) {
 }
 
 // ============================================================
-// ===== ساخت پیام تلگرام (بدون ستاره، شیک و فارسی) =====
+// ===== ساخت پیام تلگرام (نسخه قشنگ و حرفه‌ای) =====
 // ============================================================
 
 function generateTelegramMessage(obj) {
+    // تاثیر
     var impactText = '';
     if (obj.impact && Object.keys(obj.impact).length > 0) {
         for (var key in obj.impact) {
             var val = obj.impact[key];
             var name = assetNames[key] || key;
             var emoji = val === 'positive' ? '🟢' : val === 'negative' ? '🔴' : '⚪';
-            var label = val === 'positive' ? 'مثبت 📈' : val === 'negative' ? 'منفی 📉' : 'خنثی ⏸️';
-            impactText += '   ' + emoji + ' ' + name + ' → ' + label + '\n';
+            var label = val === 'positive' ? 'صعودی' : val === 'negative' ? 'نزولی' : 'خنثی';
+            impactText += emoji + ' ' + name + ' → ' + label + '\n';
         }
     } else {
-        impactText = '   ⚪ تاثیری ثبت نشده';
+        impactText = '⚪ تاثیری ثبت نشده';
     }
 
-    var mainCat = categoryMap[obj.category.main] || obj.category.main || 'نامشخص';
+    // ایموجی برای دسته‌بندی
+    var categoryEmoji = {
+        'geopolitical': '🌍',
+        'central_bank': '🏛️',
+        'interest_rate': '💰',
+        'inflation': '📈',
+        'employment': '👔',
+        'economic_growth': '📊',
+        'liquidity': '💧',
+        'regulation': '⚖️',
+        'blockchain': '⛓️',
+        'onchain': '📡',
+        'sentiment': '😊',
+        'retail': '👥',
+        'sanctions': '🚫',
+        'macroeconomics': '🌐'
+    };
+    var catEmoji = categoryEmoji[obj.category.main] || '📌';
+
+    // دسته‌بندی
+    var mainCat = categoryMap[obj.category.main] || obj.category.main || '';
     var subCat = obj.category.sub ? ' › ' + obj.category.sub : '';
 
-    var assetTags = '';
+    // هشتگ‌ها
+    var tags = '';
     if (obj.assets && obj.assets.length > 0) {
-        var tagNames = obj.assets.map(function(a) { return '#' + (assetNames[a] || a); });
-        assetTags = '\n🏷️ ' + tagNames.join('  ');
+        tags = obj.assets.map(function(a) { return '#' + (assetNames[a] || a); }).join('  ');
     }
 
-    var timeParts = [];
-    if (obj.time.shortTerm) timeParts.push('کوتاه‌مدت: ' + obj.time.shortTerm);
-    if (obj.time.mediumTerm) timeParts.push('میان‌مدت: ' + obj.time.mediumTerm);
-    if (obj.time.longTerm) timeParts.push('بلندمدت: ' + obj.time.longTerm);
+    // زمان
+    var timeStr = (obj.time.date || '') + ' | ' + (obj.time.time || '');
 
+    // ===== ساخت پیام =====
     var msg = '';
-    msg += '═══════════════════════════════\n';
-    msg += '📊  خبر فاندامنتال\n';
-    msg += '═══════════════════════════════\n\n';
-    msg += '📌  عنوان: ' + (obj.news.title || 'بدون عنوان') + '\n';
-    msg += '📂  دسته: ' + mainCat + subCat + '\n';
-    msg += '📅  تاریخ: ' + (obj.time.date || 'نامشخص') + '  ⏰ ' + (obj.time.time || '') + '\n';
-    if (timeParts.length > 0) {
-        msg += '⏱️  بازه: ' + timeParts.join('  |  ') + '\n';
-    }
-    msg += '\n───────────────────────────────\n';
-    msg += '📝  متن خبر:\n';
+    msg += '🟢  فاندامنتال\n';
+    msg += '━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+    msg += '\n';
+    msg += catEmoji + '  ' + (obj.news.title || 'بدون عنوان') + '\n';
+    msg += '\n';
     msg += (obj.news.content || 'متن خبری وجود ندارد') + '\n';
-    msg += '───────────────────────────────\n\n';
-    msg += '📊  تاثیر روی دارایی‌ها:\n';
+    msg += '\n';
+    msg += '━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+    msg += '📈  تاثیر\n';
     msg += impactText;
+    msg += '\n';
+    msg += '🕒  ' + timeStr + '\n';
     if (obj.news.source) {
-        msg += '\n🔗  منبع: ' + obj.news.source;
+        msg += '🔗  ' + obj.news.source + '\n';
     }
-    msg += assetTags;
-    msg += '\n\n═══════════════════════════════';
+    if (tags) {
+        msg += '\n' + tags;
+    }
 
     return msg;
 }
@@ -184,7 +202,7 @@ function copyTelegram() {
         return;
     }
     
-    // حذف ستاره‌ها از متن
+    // حذف ستاره‌ها از متن (اگه باشه)
     var cleanText = window._lastTelegram.replace(/\*/g, '');
     
     navigator.clipboard.writeText(cleanText).then(function() {
@@ -251,7 +269,7 @@ function displayPreview(obj) {
             var val = obj.impact[key];
             var name = assetNames[key] || key;
             var emoji = val === 'positive' ? '🟢' : val === 'negative' ? '🔴' : '⚪';
-            var label = val === 'positive' ? 'مثبت 📈' : val === 'negative' ? 'منفی 📉' : 'خنثی ⏸️';
+            var label = val === 'positive' ? 'صعودی 📈' : val === 'negative' ? 'نزولی 📉' : 'خنثی ⏸️';
             var cls = val === 'positive' ? 'impact-positive' : val === 'negative' ? 'impact-negative' : 'impact-neutral';
             impactHTML +=
                 '<div class="impact-item-preview">' +
