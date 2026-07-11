@@ -175,6 +175,61 @@ function generateTelegramMessage(obj) {
 }
 
 // ============================================================
+// ===== کپی پیام تلگرام (بدون ستاره) =====
+// ============================================================
+
+function copyTelegram() {
+    if (!window._lastTelegram) {
+        showToast('⚠️ خبری برای کپی وجود ندارد!');
+        return;
+    }
+    
+    // حذف ستاره‌ها از متن
+    var cleanText = window._lastTelegram.replace(/\*/g, '');
+    
+    navigator.clipboard.writeText(cleanText).then(function() {
+        showToast('✅ پیام تلگرام کپی شد!');
+    }).catch(function() {
+        var ta = document.createElement('textarea');
+        ta.value = cleanText;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('✅ پیام تلگرام کپی شد!');
+    });
+}
+
+// ============================================================
+// ===== کپی JSON =====
+// ============================================================
+
+function copyJSON() {
+    if (!window._lastNews) {
+        showToast('⚠️ خبری برای کپی وجود ندارد!');
+        return;
+    }
+    var json = JSON.stringify(window._lastNews, null, 2);
+    navigator.clipboard.writeText(json).then(function() {
+        showToast('✅ JSON کپی شد!');
+    }).catch(function() {
+        var ta = document.createElement('textarea');
+        ta.value = json;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('✅ JSON کپی شد!');
+    });
+}
+
+function newNews() {
+    sessionStorage.removeItem('preview_news');
+    localStorage.removeItem('last_news');
+    window.location.href = 'index.html';
+}
+
+// ============================================================
 // ===== نمایش خبر =====
 // ============================================================
 
@@ -242,53 +297,6 @@ function displayPreview(obj) {
 
     window._lastNews = obj;
     window._lastTelegram = generateTelegramMessage(obj);
-}
-
-// ============================================================
-// ===== دکمه‌ها =====
-// ============================================================
-
-function copyTelegram() {
-    if (!window._lastTelegram) {
-        showToast('⚠️ خبری برای کپی وجود ندارد!');
-        return;
-    }
-    navigator.clipboard.writeText(window._lastTelegram).then(function() {
-        showToast('✅ پیام تلگرام کپی شد!');
-    }).catch(function() {
-        var ta = document.createElement('textarea');
-        ta.value = window._lastTelegram;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showToast('✅ پیام تلگرام کپی شد!');
-    });
-}
-
-function copyJSON() {
-    if (!window._lastNews) {
-        showToast('⚠️ خبری برای کپی وجود ندارد!');
-        return;
-    }
-    var json = JSON.stringify(window._lastNews, null, 2);
-    navigator.clipboard.writeText(json).then(function() {
-        showToast('✅ JSON کپی شد!');
-    }).catch(function() {
-        var ta = document.createElement('textarea');
-        ta.value = json;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showToast('✅ JSON کپی شد!');
-    });
-}
-
-function newNews() {
-    sessionStorage.removeItem('preview_news');
-    localStorage.removeItem('last_news');
-    window.location.href = 'index.html';
 }
 
 // ============================================================
