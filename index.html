@@ -31,17 +31,17 @@
                 <label class="asset-item">
                     <input type="checkbox" value="BTC" name="asset">
                     <span class="asset-icon">₿</span>
-                    <span class="asset-name">Bitcoin</span>
+                    <span class="asset-name">بیت‌کوین</span>
                 </label>
                 <label class="asset-item">
                     <input type="checkbox" value="ALT" name="asset">
                     <span class="asset-icon">🪙</span>
-                    <span class="asset-name">Altcoin</span>
+                    <span class="asset-name">آلت‌کوین</span>
                 </label>
                 <label class="asset-item">
                     <input type="checkbox" value="MEME" name="asset">
                     <span class="asset-icon">🐶</span>
-                    <span class="asset-name">Meme Coin</span>
+                    <span class="asset-name">میم کوین</span>
                 </label>
 
                 <div class="asset-group-label">💱 ارزهای فیات</div>
@@ -105,17 +105,17 @@
                 <label class="asset-item">
                     <input type="checkbox" value="SP500" name="asset">
                     <span class="asset-icon">📈</span>
-                    <span class="asset-name">S&amp;P 500</span>
+                    <span class="asset-name">اس اند پی ۵۰۰</span>
                 </label>
                 <label class="asset-item">
                     <input type="checkbox" value="NASDAQ" name="asset">
                     <span class="asset-icon">📊</span>
-                    <span class="asset-name">NASDAQ</span>
+                    <span class="asset-name">نزدک</span>
                 </label>
                 <label class="asset-item">
                     <input type="checkbox" value="DOW" name="asset">
                     <span class="asset-icon">📉</span>
-                    <span class="asset-name">Dow Jones</span>
+                    <span class="asset-name">داوجونز</span>
                 </label>
 
                 <div class="asset-group-label">🔹 سایر</div>
@@ -186,7 +186,7 @@
                 </div>
                 <div class="form-group">
                     <label for="newsSource">منبع خبر <span class="optional">(اختیاری)</span></label>
-                    <input type="text" id="newsSource" placeholder="مثال: Reuters, Bloomberg">
+                    <input type="text" id="newsSource" placeholder="مثال: رویترز، بلومبرگ">
                 </div>
             </div>
         </div>
@@ -229,24 +229,24 @@
                         <label for="shortTerm">کوتاه‌مدت</label>
                         <select id="shortTerm">
                             <option value="">انتخاب...</option>
-                            <option value="hours">ساعت‌ها</option>
-                            <option value="days">روزها</option>
+                            <option value="ساعت‌ها">ساعت‌ها</option>
+                            <option value="روزها">روزها</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="mediumTerm">میان‌مدت</label>
                         <select id="mediumTerm">
                             <option value="">انتخاب...</option>
-                            <option value="weeks">هفته‌ها</option>
-                            <option value="months">ماه‌ها</option>
+                            <option value="هفته‌ها">هفته‌ها</option>
+                            <option value="ماه‌ها">ماه‌ها</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="longTerm">بلندمدت</label>
                         <select id="longTerm">
                             <option value="">انتخاب...</option>
-                            <option value="months">ماه‌ها</option>
-                            <option value="years">سال‌ها</option>
+                            <option value="ماه‌ها">ماه‌ها</option>
+                            <option value="سال‌ها">سال‌ها</option>
                         </select>
                     </div>
                 </div>
@@ -262,50 +262,73 @@
     </form>
 </div>
 
-<!-- ====== اسکریپت ====== -->
 <script>
 // ============================================================
-// ===== داده‌ها =====
+// ===== داده‌های کامل به فارسی =====
 // ============================================================
 
+// زیردسته‌ها (همه به فارسی)
 var subCategories = {
-    geopolitical: ['War', 'Conflict', 'Sanctions', 'Political Crisis', 'Elections'],
-    central_bank: ['FED (آمریکا)', 'ECB (اروپا)', 'BOE (انگلیس)', 'BOJ (ژاپن)', 'PBOC (چین)', 'CBR (روسیه)'],
-    interest_rate: ['Rate Hike', 'Rate Cut', 'Hold'],
-    inflation: ['CPI', 'PPI', 'Core Inflation'],
-    employment: ['Unemployment Rate', 'NFP', 'Jobs Data'],
-    economic_growth: ['GDP', 'PMI', 'Retail Sales'],
-    liquidity: ['Money Supply', 'QE', 'QT'],
-    regulation: ['Crypto Law', 'ETF Approval', 'SEC Action'],
-    blockchain: ['Network Upgrade', 'Hard Fork', 'Mainnet Launch'],
-    onchain: ['Exchange Inflows', 'Active Addresses', 'TVL'],
-    sentiment: ['Bullish', 'Bearish', 'Fear & Greed'],
-    retail: ['Retail Buying', 'Google Trends', 'Retail FOMO'],
-    sanctions: ['New Sanctions', 'Sanctions Removal', 'Oil Sanctions'],
-    macroeconomics: ['Global Growth', 'Recession', 'Recovery'],
-    other: ['Other']
+    geopolitical: ['جنگ', 'درگیری', 'تحریم', 'بحران سیاسی', 'انتخابات', 'تغییر دولت'],
+    central_bank: ['فدرال رزرو (آمریکا)', 'بانک مرکزی اروپا', 'بانک مرکزی انگلستان', 'بانک مرکزی ژاپن', 'بانک مرکزی چین', 'بانک مرکزی روسیه'],
+    interest_rate: ['افزایش نرخ بهره', 'کاهش نرخ بهره', 'ثابت ماندن نرخ بهره', 'چشم‌انداز نرخ بهره'],
+    inflation: ['شاخص قیمت مصرف‌کننده', 'شاخص قیمت تولیدکننده', 'تورم هسته‌ای', 'انتظارات تورمی'],
+    employment: ['نرخ بیکاری', 'اشتغال غیرکشاورزی', 'داده‌های شغلی', 'ادعای بیکاری'],
+    economic_growth: ['تولید ناخالص داخلی', 'شاخص مدیران خرید', 'فروش خرده‌فروشی', 'تولید صنعتی'],
+    liquidity: ['حجم نقدینگی', 'انبساط کمی', 'انقباض کمی', 'تزریق نقدینگی'],
+    regulation: ['قانون رمزارز', 'تأیید صندوق قابل معامله', 'رد صندوق قابل معامله', 'تصمیم دولت', 'اقدام کمیسیون بورس'],
+    blockchain: ['ارتقاء شبکه', 'هارک فورک', 'راه‌اندازی شبکه اصلی', 'ارتقاء امنیتی'],
+    onchain: ['ورودی به صرافی', 'خروجی از صرافی', 'آدرس‌های فعال', 'حجم تراکنش‌ها', 'ارزش کل قفل‌شده'],
+    sentiment: ['صعودی', 'نزولی', 'شاخص ترس و طمع', 'احساسات سرمایه‌گذاران'],
+    retail: ['خرید مردمی', 'فروش مردمی', 'روند جستجوی گوگل', 'ترس از دست دادن فرصت', 'فروش وحشت‌زده'],
+    sanctions: ['تحریم جدید', 'لغو تحریم', 'تحریم اقتصادی', 'تحریم نفتی', 'تحریم رمزارزی'],
+    macroeconomics: ['رشد جهانی', 'رکود اقتصادی', 'بهبود اقتصادی', 'رکود تورمی', 'بحران بدهی'],
+    other: ['سایر']
 };
 
+// نام دارایی‌ها (به فارسی)
 var assetNames = {
-    BTC: 'Bitcoin', ALT: 'Altcoin', MEME: 'Meme Coin',
-    USD: 'دلار آمریکا', EUR: 'یورو', GBP: 'پوند',
-    JPY: 'ین ژاپن', CNY: 'یوان چین', RUB: 'روبل روسیه',
-    GOLD: 'طلا', SILVER: 'نقره', OIL: 'نفت',
+    BTC: 'بیت‌کوین',
+    ALT: 'آلت‌کوین',
+    MEME: 'میم کوین',
+    USD: 'دلار آمریکا',
+    EUR: 'یورو',
+    GBP: 'پوند',
+    JPY: 'ین ژاپن',
+    CNY: 'یوان چین',
+    RUB: 'روبل روسیه',
+    GOLD: 'طلا',
+    SILVER: 'نقره',
+    OIL: 'نفت',
     NATURAL_GAS: 'گاز طبیعی',
-    SP500: 'S&P 500', NASDAQ: 'NASDAQ', DOW: 'Dow Jones',
+    SP500: 'اس اند پی ۵۰۰',
+    NASDAQ: 'نزدک',
+    DOW: 'داوجونز',
     OTHER: 'سایر'
 };
 
+// آیکون دارایی‌ها
 var assetIcons = {
-    BTC: '₿', ALT: '🪙', MEME: '🐶',
-    USD: '💵', EUR: '💶', GBP: '💷',
-    JPY: '💴', CNY: '💰', RUB: '₽',
-    GOLD: '🥇', SILVER: '🥈', OIL: '🛢️',
+    BTC: '₿',
+    ALT: '🪙',
+    MEME: '🐶',
+    USD: '💵',
+    EUR: '💶',
+    GBP: '💷',
+    JPY: '💴',
+    CNY: '💰',
+    RUB: '₽',
+    GOLD: '🥇',
+    SILVER: '🥈',
+    OIL: '🛢️',
     NATURAL_GAS: '🔥',
-    SP500: '📈', NASDAQ: '📊', DOW: '📉',
+    SP500: '📈',
+    NASDAQ: '📊',
+    DOW: '📉',
     OTHER: '🔹'
 };
 
+// نام فارسی دسته‌بندی‌ها
 var categoryMap = {
     geopolitical: '🌍 ژئوپلیتیک',
     central_bank: '🏛️ بانک مرکزی',
@@ -426,10 +449,10 @@ mainCat.addEventListener('change', function() {
         return;
     }
 
-    var options = subCategories[category] || ['Other'];
+    var options = subCategories[category] || ['سایر'];
     options.forEach(function(item) {
         var opt = document.createElement('option');
-        opt.value = item.toLowerCase().replace(/ /g, '_');
+        opt.value = item;
         opt.textContent = item;
         subCat.appendChild(opt);
     });
@@ -474,6 +497,63 @@ function updateImpact() {
             }
         });
     });
+}
+
+// ============================================================
+// ===== ساخت پیام تلگرام (نسخه شیک و فارسی) =====
+// ============================================================
+
+function generateTelegramMessage(obj) {
+    var impactText = '';
+    if (obj.impact && Object.keys(obj.impact).length > 0) {
+        for (var key in obj.impact) {
+            var val = obj.impact[key];
+            var name = assetNames[key] || key;
+            var emoji = val === 'positive' ? '🟢' : val === 'negative' ? '🔴' : '⚪';
+            var label = val === 'positive' ? 'مثبت 📈' : val === 'negative' ? 'منفی 📉' : 'خنثی ⏸️';
+            impactText += '   ' + emoji + ' ' + name + ' → ' + label + '\n';
+        }
+    } else {
+        impactText = '   ⚪ تاثیری ثبت نشده';
+    }
+
+    var mainCat = categoryMap[obj.category.main] || obj.category.main || 'نامشخص';
+    var subCat = obj.category.sub ? ' › ' + obj.category.sub : '';
+
+    var assetTags = '';
+    if (obj.assets && obj.assets.length > 0) {
+        var tagNames = obj.assets.map(function(a) { return '#' + (assetNames[a] || a); });
+        assetTags = '\n🏷️ ' + tagNames.join('  ');
+    }
+
+    var timeParts = [];
+    if (obj.time.shortTerm) timeParts.push('کوتاه‌مدت: ' + obj.time.shortTerm);
+    if (obj.time.mediumTerm) timeParts.push('میان‌مدت: ' + obj.time.mediumTerm);
+    if (obj.time.longTerm) timeParts.push('بلندمدت: ' + obj.time.longTerm);
+
+    var msg = '';
+    msg += '═══════════════════════════════\n';
+    msg += '📊  خبر فاندامنتال\n';
+    msg += '═══════════════════════════════\n\n';
+    msg += '📌  عنوان: ' + (obj.news.title || 'بدون عنوان') + '\n';
+    msg += '📂  دسته: ' + mainCat + subCat + '\n';
+    msg += '📅  تاریخ: ' + (obj.time.date || 'نامشخص') + '  ⏰ ' + (obj.time.time || '') + '\n';
+    if (timeParts.length > 0) {
+        msg += '⏱️  بازه: ' + timeParts.join('  |  ') + '\n';
+    }
+    msg += '\n───────────────────────────────\n';
+    msg += '📝  متن خبر:\n';
+    msg += (obj.news.content || 'متن خبری وجود ندارد') + '\n';
+    msg += '───────────────────────────────\n\n';
+    msg += '📊  تاثیر روی دارایی‌ها:\n';
+    msg += impactText;
+    if (obj.news.source) {
+        msg += '\n🔗  منبع: ' + obj.news.source;
+    }
+    msg += assetTags;
+    msg += '\n\n═══════════════════════════════';
+
+    return msg;
 }
 
 // ============================================================
@@ -537,7 +617,6 @@ function generateNews() {
 $('newsForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // اعتبارسنجی
     var assets = document.querySelectorAll('.asset-item input[type="checkbox"]:checked');
     if (assets.length === 0) {
         showToast('⚠️ لطفاً حداقل یک دارایی انتخاب کنید!');
@@ -562,11 +641,9 @@ $('newsForm').addEventListener('submit', function(e) {
         return;
     }
 
-    // ساخت خبر
     var news = generateNews();
     console.log('✅ خبر ساخته شد:', news);
 
-    // ذخیره در localStorage و sessionStorage
     var all = JSON.parse(localStorage.getItem('fundamental_news') || '[]');
     all.push(news);
     localStorage.setItem('fundamental_news', JSON.stringify(all));
@@ -574,8 +651,6 @@ $('newsForm').addEventListener('submit', function(e) {
     sessionStorage.setItem('preview_news', JSON.stringify(news));
 
     showToast('✅ خبر با موفقیت ساخته شد!');
-
-    // رفتن به صفحه preview
     window.location.href = 'preview.html';
 });
 
