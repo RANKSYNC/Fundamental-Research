@@ -4,43 +4,62 @@
 
 // زیردسته‌ها
 var subCategories = {
-    geopolitical: ['War', 'Conflict', 'Peace Treaty', 'Diplomatic Relations', 'Political Crisis', 'Elections', 'Government Change', 'International Tensions'],
-    central_bank: ['FED (آمریکا)', 'ECB (اروپا)', 'BOE (انگلیس)', 'BOJ (ژاپن)', 'PBOC (چین)', 'CBR (روسیه)', 'SNB (سوئیس)', 'RBA (استرالیا)', 'BOC (کانادا)'],
-    interest_rate: ['Rate Hike', 'Rate Cut', 'Hold', 'Forward Guidance', 'Dot Plot', 'Rate Decision'],
-    inflation: ['CPI', 'PPI', 'Core Inflation', 'Headline Inflation', 'Inflation Expectations', 'PCE', 'WPI'],
-    employment: ['Unemployment Rate', 'NFP (Non-Farm Payroll)', 'Jobs Data', 'Jobless Claims', 'ADP Employment', 'Labor Force Participation', 'Wage Growth'],
-    economic_growth: ['GDP', 'PMI', 'Industrial Production', 'Retail Sales', 'Consumer Spending', 'Business Investment', 'Trade Balance', 'Current Account'],
-    liquidity: ['Money Supply', 'QE (Quantitative Easing)', 'QT (Quantitative Tightening)', 'Reverse Repo', 'Bank Reserves', 'Liquidity Injection', 'Liquidity Drain'],
-    regulation: ['Crypto Law', 'ETF Approval', 'ETF Rejection', 'Government Decision', 'Regulatory Framework', 'SEC Action', 'CFTC Regulation', 'Banking Regulation', 'Tax Policy', 'Anti-Money Laundering', 'KYC Requirements'],
-    blockchain: ['Network Upgrade', 'Hard Fork', 'Soft Fork', 'Mainnet Launch', 'Testnet', 'Bridge Launch', 'Layer 2 Solution', 'Scalability Improvement', 'Security Upgrade', 'Consensus Change', 'New Feature'],
-    onchain: ['Exchange Inflows', 'Exchange Outflows', 'Active Addresses', 'Transaction Count', 'Transaction Volume', 'Gas Fees', 'Network Hashrate', 'Staking Rate', 'Locked Value (TVL)', 'Whale Activity', 'Supply on Exchanges'],
-    sentiment: ['Bullish', 'Bearish', 'Fear & Greed Index', 'Put/Call Ratio', 'Volatility Index (VIX)', 'Crypto Fear & Greed', 'Investor Sentiment', 'Institutional Interest', 'Retail Interest'],
-    retail: ['Retail Buying', 'Retail Selling', 'Google Trends', 'Social Media Activity', 'App Downloads', 'Exchange Signups', 'Retail Interest', 'Meme Coin Mania', 'Retail FOMO', 'Retail Capitulation', 'Search Volume'],
-    sanctions: ['New Sanctions', 'Sanctions Removal', 'Sanctions Evasion', 'Economic Sanctions', 'Trade Sanctions', 'Financial Sanctions', 'Oil Sanctions', 'Crypto Sanctions', 'Sanctions Impact'],
-    macroeconomics: ['Global Growth', 'Recession', 'Recovery', 'Stagflation', 'Global Trade', 'Supply Chain', 'Energy Prices', 'Food Prices', 'Global Inflation', 'Currency Wars', 'Debt Crisis', 'Fiscal Policy', 'Monetary Policy'],
+    geopolitical: ['War', 'Conflict', 'Sanctions', 'Political Crisis', 'Elections', 'Government Change'],
+    central_bank: ['FED (آمریکا)', 'ECB (اروپا)', 'BOE (انگلیس)', 'BOJ (ژاپن)', 'PBOC (چین)', 'CBR (روسیه)'],
+    interest_rate: ['Rate Hike', 'Rate Cut', 'Hold', 'Forward Guidance'],
+    inflation: ['CPI', 'PPI', 'Core Inflation', 'Inflation Expectations'],
+    employment: ['Unemployment Rate', 'NFP', 'Jobs Data', 'Jobless Claims'],
+    economic_growth: ['GDP', 'PMI', 'Industrial Production', 'Retail Sales'],
+    liquidity: ['Money Supply', 'QE', 'QT', 'Liquidity Injection'],
+    regulation: ['Crypto Law', 'ETF Approval', 'ETF Rejection', 'Government Decision', 'SEC Action'],
+    blockchain: ['Network Upgrade', 'Hard Fork', 'Mainnet Launch', 'Security Upgrade'],
+    onchain: ['Exchange Inflows', 'Exchange Outflows', 'Active Addresses', 'Transaction Volume', 'TVL'],
+    sentiment: ['Bullish', 'Bearish', 'Fear & Greed Index', 'Investor Sentiment'],
+    retail: ['Retail Buying', 'Retail Selling', 'Google Trends', 'Retail FOMO'],
+    sanctions: ['New Sanctions', 'Sanctions Removal', 'Economic Sanctions', 'Oil Sanctions'],
+    macroeconomics: ['Global Growth', 'Recession', 'Recovery', 'Stagflation', 'Debt Crisis'],
     other: ['Other']
 };
 
 // نام دارایی‌ها
 var assetNames = {
-    BTC: 'Bitcoin', ETH: 'Ethereum', BNB: 'BNB', SOL: 'Solana', XRP: 'Ripple',
-    ADA: 'Cardano', DOT: 'Polkadot', LINK: 'Chainlink', MATIC: 'Polygon',
-    ALT: 'Altcoin', MEME: 'Meme Coin',
-    USD: 'دلار آمریکا', EUR: 'یورو', GBP: 'پوند', JPY: 'ین ژاپن',
-    CNY: 'یوان چین', RUB: 'روبل روسیه',
-    GOLD: 'طلا', SILVER: 'نقره', OIL: 'نفت', NATURAL_GAS: 'گاز طبیعی',
-    SP500: 'S&P 500', NASDAQ: 'NASDAQ', DOW: 'Dow Jones',
+    BTC: 'Bitcoin',
+    ALT: 'Altcoin',
+    MEME: 'Meme Coin',
+    USD: 'دلار آمریکا',
+    EUR: 'یورو',
+    GBP: 'پوند',
+    JPY: 'ین ژاپن',
+    CNY: 'یوان چین',
+    RUB: 'روبل روسیه',
+    GOLD: 'طلا',
+    SILVER: 'نقره',
+    OIL: 'نفت',
+    NATURAL_GAS: 'گاز طبیعی',
+    SP500: 'S&P 500',
+    NASDAQ: 'NASDAQ',
+    DOW: 'Dow Jones',
     OTHER: 'سایر'
 };
 
 // آیکون دارایی‌ها
 var assetIcons = {
-    BTC: '₿', ETH: '⟠', BNB: '🟡', SOL: '☀️', XRP: '💠',
-    ADA: '🔷', DOT: '🔴', LINK: '🔗', MATIC: '🟣',
-    ALT: '🪙', MEME: '🐶',
-    USD: '💵', EUR: '💶', GBP: '💷', JPY: '💴', CNY: '💰', RUB: '₽',
-    GOLD: '🥇', SILVER: '🥈', OIL: '🛢️', NATURAL_GAS: '🔥',
-    SP500: '📈', NASDAQ: '📊', DOW: '📉',
+    BTC: '₿',
+    ALT: '🪙',
+    MEME: '🐶',
+    USD: '💵',
+    EUR: '💶',
+    GBP: '💷',
+    JPY: '💴',
+    CNY: '💰',
+    RUB: '₽',
+    GOLD: '🥇',
+    SILVER: '🥈',
+    OIL: '🛢️',
+    NATURAL_GAS: '🔥',
+    SP500: '📈',
+    NASDAQ: '📊',
+    DOW: '📉',
     OTHER: '🔹'
 };
 
@@ -95,8 +114,12 @@ function updateLiveTime() {
     var el = getElement('liveTime');
     if (el) {
         el.textContent = '⏰ ' + now.toLocaleString('fa-IR', {
-            year: 'numeric', month: '2-digit', day: '2-digit',
-            hour: '2-digit', minute: '2-digit', second: '2-digit',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
             hour12: false
         });
     }
@@ -226,18 +249,6 @@ function updateImpactAssets() {
 }
 
 // ============================================================
-// ===== ذخیره‌سازی =====
-// ============================================================
-
-function saveToLocalStorage(obj) {
-    var all = JSON.parse(localStorage.getItem('fundamental_news') || '[]');
-    all.push(obj);
-    localStorage.setItem('fundamental_news', JSON.stringify(all));
-    localStorage.setItem('last_news', JSON.stringify(obj));
-    return all;
-}
-
-// ============================================================
 // ===== ساخت شیء خبر =====
 // ============================================================
 
@@ -361,6 +372,18 @@ function generateTelegramMessage(obj) {
 }
 
 // ============================================================
+// ===== ذخیره‌سازی =====
+// ============================================================
+
+function saveToLocalStorage(obj) {
+    var all = JSON.parse(localStorage.getItem('fundamental_news') || '[]');
+    all.push(obj);
+    localStorage.setItem('fundamental_news', JSON.stringify(all));
+    localStorage.setItem('last_news', JSON.stringify(obj));
+    return all;
+}
+
+// ============================================================
 // ===== ارسال فرم =====
 // ============================================================
 
@@ -368,6 +391,8 @@ var form = getElement('newsForm');
 if (form) {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
+
+        console.log('✅ فرم ارسال شد!');
 
         // Validation
         var assets = document.querySelectorAll('.asset-item input[type="checkbox"]:checked');
@@ -397,10 +422,16 @@ if (form) {
             return;
         }
 
+        console.log('✅ اعتبارسنجی کامل شد!');
+
         // Generate
         var obj = generateNewsObject();
+        console.log('📊 خبر ساخته شد:', obj);
+
         saveToLocalStorage(obj);
         sessionStorage.setItem('preview_news', JSON.stringify(obj));
+
+        console.log('✅ خبر ذخیره شد، رفتن به preview.html');
 
         // Redirect
         window.location.href = 'preview.html';
