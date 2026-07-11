@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📊 ثبت خبر فاندامنتال</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-
-    <!-- ====== HEADER ====== -->
     <header>
         <h1>📊 ثبت خبر فاندامنتال</h1>
         <p class="subtitle">سیستم حرفه‌ای ثبت و مدیریت اخبار اقتصادی</p>
         <div class="live-time" id="liveTime">⏰ در حال بارگذاری...</div>
     </header>
 
-    <!-- ====== FORM ====== -->
     <form id="newsForm">
 
-        <!-- ============================================================ -->
-        <!-- بخش ۱: دارایی مربوطه -->
-        <!-- ============================================================ -->
+        <!-- ====== بخش ۱: دارایی ====== -->
         <div class="form-section">
             <div class="section-header">
                 <span class="section-number">۱</span>
@@ -30,137 +25,104 @@
                 <span class="required-badge">الزامی</span>
             </div>
 
-            <div class="asset-grid" id="assetGrid">
-                <!-- ارزهای دیجیتال -->
+            <div class="asset-grid">
                 <div class="asset-group-label">🪙 ارزهای دیجیتال</div>
 
-                <label class="asset-item" data-asset="BTC">
-                    <input type="checkbox" value="BTC" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="BTC" name="asset">
                     <span class="asset-icon">₿</span>
                     <span class="asset-name">Bitcoin</span>
-                    <span class="asset-symbol">BTC</span>
                 </label>
-
-                <label class="asset-item" data-asset="ALT">
-                    <input type="checkbox" value="ALT" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="ALT" name="asset">
                     <span class="asset-icon">🪙</span>
                     <span class="asset-name">Altcoin</span>
-                    <span class="asset-symbol">ALT</span>
                 </label>
-
-                <label class="asset-item" data-asset="MEME">
-                    <input type="checkbox" value="MEME" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="MEME" name="asset">
                     <span class="asset-icon">🐶</span>
                     <span class="asset-name">Meme Coin</span>
-                    <span class="asset-symbol">MEME</span>
                 </label>
 
-                <!-- ارزهای فیات -->
                 <div class="asset-group-label">💱 ارزهای فیات</div>
 
-                <label class="asset-item" data-asset="USD">
-                    <input type="checkbox" value="USD" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="USD" name="asset">
                     <span class="asset-icon">💵</span>
                     <span class="asset-name">دلار آمریکا</span>
-                    <span class="asset-symbol">USD</span>
                 </label>
-
-                <label class="asset-item" data-asset="EUR">
-                    <input type="checkbox" value="EUR" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="EUR" name="asset">
                     <span class="asset-icon">💶</span>
                     <span class="asset-name">یورو</span>
-                    <span class="asset-symbol">EUR</span>
                 </label>
-
-                <label class="asset-item" data-asset="GBP">
-                    <input type="checkbox" value="GBP" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="GBP" name="asset">
                     <span class="asset-icon">💷</span>
                     <span class="asset-name">پوند</span>
-                    <span class="asset-symbol">GBP</span>
                 </label>
-
-                <label class="asset-item" data-asset="JPY">
-                    <input type="checkbox" value="JPY" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="JPY" name="asset">
                     <span class="asset-icon">💴</span>
                     <span class="asset-name">ین ژاپن</span>
-                    <span class="asset-symbol">JPY</span>
                 </label>
-
-                <label class="asset-item" data-asset="CNY">
-                    <input type="checkbox" value="CNY" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="CNY" name="asset">
                     <span class="asset-icon">💰</span>
                     <span class="asset-name">یوان چین</span>
-                    <span class="asset-symbol">CNY</span>
                 </label>
-
-                <label class="asset-item" data-asset="RUB">
-                    <input type="checkbox" value="RUB" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="RUB" name="asset">
                     <span class="asset-icon">₽</span>
                     <span class="asset-name">روبل روسیه</span>
-                    <span class="asset-symbol">RUB</span>
                 </label>
 
-                <!-- کالاها -->
                 <div class="asset-group-label">📦 کالاها</div>
 
-                <label class="asset-item" data-asset="GOLD">
-                    <input type="checkbox" value="GOLD" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="GOLD" name="asset">
                     <span class="asset-icon">🥇</span>
                     <span class="asset-name">طلا</span>
-                    <span class="asset-symbol">XAU</span>
                 </label>
-
-                <label class="asset-item" data-asset="SILVER">
-                    <input type="checkbox" value="SILVER" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="SILVER" name="asset">
                     <span class="asset-icon">🥈</span>
                     <span class="asset-name">نقره</span>
-                    <span class="asset-symbol">XAG</span>
                 </label>
-
-                <label class="asset-item" data-asset="OIL">
-                    <input type="checkbox" value="OIL" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="OIL" name="asset">
                     <span class="asset-icon">🛢️</span>
                     <span class="asset-name">نفت</span>
-                    <span class="asset-symbol">WTI</span>
                 </label>
-
-                <label class="asset-item" data-asset="NATURAL_GAS">
-                    <input type="checkbox" value="NATURAL_GAS" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="NATURAL_GAS" name="asset">
                     <span class="asset-icon">🔥</span>
                     <span class="asset-name">گاز طبیعی</span>
-                    <span class="asset-symbol">NG</span>
                 </label>
 
-                <!-- شاخص‌ها -->
                 <div class="asset-group-label">📊 شاخص‌ها</div>
 
-                <label class="asset-item" data-asset="SP500">
-                    <input type="checkbox" value="SP500" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="SP500" name="asset">
                     <span class="asset-icon">📈</span>
                     <span class="asset-name">S&amp;P 500</span>
-                    <span class="asset-symbol">SPX</span>
                 </label>
-
-                <label class="asset-item" data-asset="NASDAQ">
-                    <input type="checkbox" value="NASDAQ" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="NASDAQ" name="asset">
                     <span class="asset-icon">📊</span>
                     <span class="asset-name">NASDAQ</span>
-                    <span class="asset-symbol">IXIC</span>
                 </label>
-
-                <label class="asset-item" data-asset="DOW">
-                    <input type="checkbox" value="DOW" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="DOW" name="asset">
                     <span class="asset-icon">📉</span>
                     <span class="asset-name">Dow Jones</span>
-                    <span class="asset-symbol">DJI</span>
                 </label>
 
                 <div class="asset-group-label">🔹 سایر</div>
-                <label class="asset-item" data-asset="OTHER">
-                    <input type="checkbox" value="OTHER" name="asset" />
+                <label class="asset-item">
+                    <input type="checkbox" value="OTHER" name="asset">
                     <span class="asset-icon">🔹</span>
                     <span class="asset-name">سایر</span>
-                    <span class="asset-symbol">---</span>
                 </label>
             </div>
 
@@ -169,9 +131,7 @@
             </div>
         </div>
 
-        <!-- ============================================================ -->
-        <!-- بخش ۲: دسته‌بندی فاندامنتال -->
-        <!-- ============================================================ -->
+        <!-- ====== بخش ۲: دسته‌بندی ====== -->
         <div class="form-section">
             <div class="section-header">
                 <span class="section-number">۲</span>
@@ -199,7 +159,7 @@
                     <option value="other">🔹 سایر</option>
                 </select>
 
-                <div class="sub-category" id="subCategoryContainer">
+                <div class="sub-category">
                     <select id="subCategory" disabled>
                         <option value="">ابتدا دسته اصلی را انتخاب کنید</option>
                     </select>
@@ -207,9 +167,7 @@
             </div>
         </div>
 
-        <!-- ============================================================ -->
-        <!-- بخش ۳: محتوای خبر -->
-        <!-- ============================================================ -->
+        <!-- ====== بخش ۳: محتوای خبر ====== -->
         <div class="form-section">
             <div class="section-header">
                 <span class="section-number">۳</span>
@@ -220,7 +178,7 @@
             <div class="news-content">
                 <div class="form-group">
                     <label for="newsTitle">عنوان خبر</label>
-                    <input type="text" id="newsTitle" placeholder="مثال: فدرال رزرو نرخ بهره را افزایش داد" required />
+                    <input type="text" id="newsTitle" placeholder="مثال: فدرال رزرو نرخ بهره را افزایش داد" required>
                 </div>
                 <div class="form-group">
                     <label for="newsContent">متن خبر</label>
@@ -228,14 +186,12 @@
                 </div>
                 <div class="form-group">
                     <label for="newsSource">منبع خبر <span class="optional">(اختیاری)</span></label>
-                    <input type="text" id="newsSource" placeholder="مثال: Reuters, Bloomberg" />
+                    <input type="text" id="newsSource" placeholder="مثال: Reuters, Bloomberg">
                 </div>
             </div>
         </div>
 
-        <!-- ============================================================ -->
-        <!-- بخش ۴: تاثیر روی دارایی‌ها -->
-        <!-- ============================================================ -->
+        <!-- ====== بخش ۴: تاثیر ====== -->
         <div class="form-section">
             <div class="section-header">
                 <span class="section-number">۴</span>
@@ -249,9 +205,7 @@
             </div>
         </div>
 
-        <!-- ============================================================ -->
-        <!-- بخش ۵: زمان -->
-        <!-- ============================================================ -->
+        <!-- ====== بخش ۵: زمان ====== -->
         <div class="form-section">
             <div class="section-header">
                 <span class="section-number">۵</span>
@@ -263,11 +217,11 @@
                 <div class="time-row">
                     <div class="form-group">
                         <label for="newsDate">تاریخ</label>
-                        <input type="date" id="newsDate" />
+                        <input type="date" id="newsDate">
                     </div>
                     <div class="form-group">
                         <label for="newsTime">زمان</label>
-                        <input type="time" id="newsTime" />
+                        <input type="time" id="newsTime">
                     </div>
                 </div>
                 <div class="time-row three-col">
@@ -299,7 +253,6 @@
             </div>
         </div>
 
-        <!-- ====== دکمه ثبت ====== -->
         <button type="submit" class="btn-submit">
             <span class="btn-icon">✨</span>
             تولید خبر
@@ -309,6 +262,332 @@
     </form>
 </div>
 
-<script src="script.js"></script>
+<!-- ====== اسکریپت ====== -->
+<script>
+// ============================================================
+// ===== داده‌ها =====
+// ============================================================
+
+var subCategories = {
+    geopolitical: ['War', 'Conflict', 'Sanctions', 'Political Crisis', 'Elections'],
+    central_bank: ['FED (آمریکا)', 'ECB (اروپا)', 'BOE (انگلیس)', 'BOJ (ژاپن)', 'PBOC (چین)', 'CBR (روسیه)'],
+    interest_rate: ['Rate Hike', 'Rate Cut', 'Hold'],
+    inflation: ['CPI', 'PPI', 'Core Inflation'],
+    employment: ['Unemployment Rate', 'NFP', 'Jobs Data'],
+    economic_growth: ['GDP', 'PMI', 'Retail Sales'],
+    liquidity: ['Money Supply', 'QE', 'QT'],
+    regulation: ['Crypto Law', 'ETF Approval', 'SEC Action'],
+    blockchain: ['Network Upgrade', 'Hard Fork', 'Mainnet Launch'],
+    onchain: ['Exchange Inflows', 'Active Addresses', 'TVL'],
+    sentiment: ['Bullish', 'Bearish', 'Fear & Greed'],
+    retail: ['Retail Buying', 'Google Trends', 'Retail FOMO'],
+    sanctions: ['New Sanctions', 'Sanctions Removal', 'Oil Sanctions'],
+    macroeconomics: ['Global Growth', 'Recession', 'Recovery'],
+    other: ['Other']
+};
+
+var assetNames = {
+    BTC: 'Bitcoin', ALT: 'Altcoin', MEME: 'Meme Coin',
+    USD: 'دلار آمریکا', EUR: 'یورو', GBP: 'پوند',
+    JPY: 'ین ژاپن', CNY: 'یوان چین', RUB: 'روبل روسیه',
+    GOLD: 'طلا', SILVER: 'نقره', OIL: 'نفت',
+    NATURAL_GAS: 'گاز طبیعی',
+    SP500: 'S&P 500', NASDAQ: 'NASDAQ', DOW: 'Dow Jones',
+    OTHER: 'سایر'
+};
+
+var assetIcons = {
+    BTC: '₿', ALT: '🪙', MEME: '🐶',
+    USD: '💵', EUR: '💶', GBP: '💷',
+    JPY: '💴', CNY: '💰', RUB: '₽',
+    GOLD: '🥇', SILVER: '🥈', OIL: '🛢️',
+    NATURAL_GAS: '🔥',
+    SP500: '📈', NASDAQ: '📊', DOW: '📉',
+    OTHER: '🔹'
+};
+
+var categoryMap = {
+    geopolitical: '🌍 ژئوپلیتیک',
+    central_bank: '🏛️ بانک مرکزی',
+    interest_rate: '💰 نرخ بهره',
+    inflation: '📈 تورم',
+    employment: '👔 اشتغال',
+    economic_growth: '📊 رشد اقتصادی',
+    liquidity: '💧 نقدینگی',
+    regulation: '⚖️ مقررات',
+    blockchain: '⛓️ بلاکچین',
+    onchain: '📡 داده‌های آنچین',
+    sentiment: '😊 احساسات بازار',
+    retail: '👥 داده‌های مردمی',
+    sanctions: '🚫 تحریم‌ها',
+    macroeconomics: '🌐 اقتصاد کلان',
+    other: '🔹 سایر'
+};
+
+// ============================================================
+// ===== توابع کمکی =====
+// ============================================================
+
+function $(id) { return document.getElementById(id); }
+
+function showToast(msg) {
+    var old = document.querySelector('.toast');
+    if (old) old.remove();
+    var t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(function() {
+        t.classList.add('hide');
+        setTimeout(function() { t.remove(); }, 300);
+    }, 3000);
+}
+
+// ============================================================
+// ===== زمان زنده =====
+// ============================================================
+
+function updateLiveTime() {
+    var el = $('liveTime');
+    if (el) {
+        el.textContent = '⏰ ' + new Date().toLocaleString('fa-IR', {
+            year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: '2-digit', minute: '2-digit', second: '2-digit',
+            hour12: false
+        });
+    }
+}
+updateLiveTime();
+setInterval(updateLiveTime, 1000);
+
+// ============================================================
+// ===== مدیریت دارایی‌ها =====
+// ============================================================
+
+var checkboxes = document.querySelectorAll('.asset-item input[type="checkbox"]');
+var selectedContainer = $('selectedAssets');
+
+checkboxes.forEach(function(cb) {
+    cb.addEventListener('change', function() {
+        var parent = this.closest('.asset-item');
+        if (parent) parent.classList.toggle('active', this.checked);
+        updateSelectedAssets();
+    });
+});
+
+function updateSelectedAssets() {
+    var checked = document.querySelectorAll('.asset-item input[type="checkbox"]:checked');
+    var container = selectedContainer;
+
+    if (checked.length === 0) {
+        container.innerHTML = '<span class="hint">📌 هنوز دارایی‌ای انتخاب نشده</span>';
+        updateImpact();
+        return;
+    }
+
+    container.innerHTML = '';
+    checked.forEach(function(cb) {
+        var val = cb.value;
+        var tag = document.createElement('span');
+        tag.className = 'selected-asset-tag';
+        tag.innerHTML = (assetIcons[val] || '📌') + ' ' + (assetNames[val] || val) +
+            ' <span class="remove-asset" data-value="' + val + '">✕</span>';
+        container.appendChild(tag);
+
+        tag.querySelector('.remove-asset').addEventListener('click', function() {
+            var v = this.dataset.value;
+            var inp = document.querySelector('.asset-item input[value="' + v + '"]');
+            if (inp) {
+                inp.checked = false;
+                var p = inp.closest('.asset-item');
+                if (p) p.classList.remove('active');
+                updateSelectedAssets();
+            }
+        });
+    });
+
+    updateImpact();
+}
+
+// ============================================================
+// ===== مدیریت دسته‌بندی =====
+// ============================================================
+
+var mainCat = $('mainCategory');
+var subCat = $('subCategory');
+
+mainCat.addEventListener('change', function() {
+    var category = this.value;
+    subCat.innerHTML = '';
+    subCat.disabled = !category;
+
+    if (!category) {
+        subCat.innerHTML = '<option value="">ابتدا دسته اصلی را انتخاب کنید</option>';
+        return;
+    }
+
+    var options = subCategories[category] || ['Other'];
+    options.forEach(function(item) {
+        var opt = document.createElement('option');
+        opt.value = item.toLowerCase().replace(/ /g, '_');
+        opt.textContent = item;
+        subCat.appendChild(opt);
+    });
+});
+
+// ============================================================
+// ===== مدیریت تاثیر =====
+// ============================================================
+
+var impactContainer = $('impactContainer');
+
+function updateImpact() {
+    var checked = document.querySelectorAll('.asset-item input[type="checkbox"]:checked');
+    var values = [];
+    checked.forEach(function(cb) { values.push(cb.value); });
+
+    if (values.length === 0) {
+        impactContainer.innerHTML = '<p class="impact-hint" style="color:#a0aec0;">📌 ابتدا دارایی‌ها را انتخاب کنید</p>';
+        return;
+    }
+
+    impactContainer.innerHTML = '';
+    values.forEach(function(asset) {
+        var div = document.createElement('div');
+        div.className = 'impact-item';
+        div.innerHTML =
+            '<span class="asset-label">' + (assetIcons[asset] || '📌') + ' ' + (assetNames[asset] || asset) + '</span>' +
+            '<div class="impact-buttons">' +
+            '<button type="button" class="impact-btn positive" data-asset="' + asset + '" data-value="positive">↑ مثبت</button>' +
+            '<button type="button" class="impact-btn negative" data-asset="' + asset + '" data-value="negative">↓ منفی</button>' +
+            '<button type="button" class="impact-btn neutral active" data-asset="' + asset + '" data-value="neutral">→ خنثی</button>' +
+            '</div>';
+        impactContainer.appendChild(div);
+    });
+
+    document.querySelectorAll('.impact-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var parent = this.closest('.impact-item');
+            if (parent) {
+                parent.querySelectorAll('.impact-btn').forEach(function(b) { b.classList.remove('active'); });
+                this.classList.add('active');
+            }
+        });
+    });
+}
+
+// ============================================================
+// ===== ساخت خبر =====
+// ============================================================
+
+function generateNews() {
+    var assets = [];
+    document.querySelectorAll('.asset-item input[type="checkbox"]:checked').forEach(function(cb) {
+        assets.push(cb.value);
+    });
+
+    var impact = {};
+    document.querySelectorAll('.impact-item').forEach(function(item) {
+        var label = item.querySelector('.asset-label');
+        if (!label) return;
+        var text = label.textContent.trim();
+        var code = '';
+        for (var key in assetNames) {
+            if (text.includes(assetNames[key]) || text.includes(key)) {
+                code = key;
+                break;
+            }
+        }
+        var active = item.querySelector('.impact-btn.active');
+        impact[code || 'unknown'] = active ? active.dataset.value : 'neutral';
+    });
+
+    var now = new Date();
+    var date = $('newsDate').value || now.toISOString().split('T')[0];
+    var time = $('newsTime').value || now.toTimeString().slice(0, 5);
+
+    return {
+        id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+        timestamp: now.toISOString(),
+        assets: assets,
+        category: {
+            main: $('mainCategory').value,
+            sub: $('subCategory').value
+        },
+        news: {
+            title: $('newsTitle').value.trim(),
+            content: $('newsContent').value.trim(),
+            source: $('newsSource').value.trim()
+        },
+        impact: impact,
+        time: {
+            date: date,
+            time: time,
+            shortTerm: $('shortTerm').value,
+            mediumTerm: $('mediumTerm').value,
+            longTerm: $('longTerm').value
+        }
+    };
+}
+
+// ============================================================
+// ===== ارسال فرم =====
+// ============================================================
+
+$('newsForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // اعتبارسنجی
+    var assets = document.querySelectorAll('.asset-item input[type="checkbox"]:checked');
+    if (assets.length === 0) {
+        showToast('⚠️ لطفاً حداقل یک دارایی انتخاب کنید!');
+        return;
+    }
+
+    if (!$('newsTitle').value.trim()) {
+        showToast('⚠️ لطفاً عنوان خبر را وارد کنید!');
+        $('newsTitle').focus();
+        return;
+    }
+
+    if (!$('newsContent').value.trim()) {
+        showToast('⚠️ لطفاً متن خبر را وارد کنید!');
+        $('newsContent').focus();
+        return;
+    }
+
+    if (!$('mainCategory').value) {
+        showToast('⚠️ لطفاً دسته‌بندی خبر را انتخاب کنید!');
+        $('mainCategory').focus();
+        return;
+    }
+
+    // ساخت خبر
+    var news = generateNews();
+    console.log('✅ خبر ساخته شد:', news);
+
+    // ذخیره در localStorage و sessionStorage
+    var all = JSON.parse(localStorage.getItem('fundamental_news') || '[]');
+    all.push(news);
+    localStorage.setItem('fundamental_news', JSON.stringify(all));
+    localStorage.setItem('last_news', JSON.stringify(news));
+    sessionStorage.setItem('preview_news', JSON.stringify(news));
+
+    showToast('✅ خبر با موفقیت ساخته شد!');
+
+    // رفتن به صفحه preview
+    window.location.href = 'preview.html';
+});
+
+// ============================================================
+// ===== مقداردهی اولیه =====
+// ============================================================
+
+var now = new Date();
+$('newsDate').value = now.toISOString().split('T')[0];
+$('newsTime').value = now.toTimeString().slice(0, 5);
+
+console.log('✅ سیستم خبر فاندامنتال آماده است!');
+</script>
 </body>
 </html>
